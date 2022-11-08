@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using Project.Database;
 
 namespace Project
 {
@@ -18,33 +19,6 @@ namespace Project
         public Login()
         {
             InitializeComponent();
-
-
-            // Get connection string
-            string constr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
-
-            // Declare connection
-            MySqlConnection conn = null;
-
-            try
-            {
-                conn = new MySqlConnection(constr);
-                conn.Open();
-
-                MessageBox.Show("connected");
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-
 
             detectLanguage();
         }
@@ -73,6 +47,18 @@ namespace Project
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            MySqlConnection c = DBConnection.conn;
+
+            if (c.State == ConnectionState.Open)
+            {
+                MessageBox.Show("Connection Open");
+            }
+            else
+            {
+                MessageBox.Show("Connection Closed");
+            }
+
+
             this.Visible = false;
             MainForm newForm = new MainForm();
             newForm.Show();

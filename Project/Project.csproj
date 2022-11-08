@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DBConnection.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

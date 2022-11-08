@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,12 @@ namespace Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            DBConnection.startConnection();
+
             Application.Run(new Login());
+
+            DBConnection.closeConnection();
         }
     }
 }
