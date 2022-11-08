@@ -29,39 +29,55 @@
         private void InitializeComponent()
         {
             this.panelNavigation = new System.Windows.Forms.Panel();
-            this.buttonCustomers = new System.Windows.Forms.Button();
-            this.buttonAppointments = new System.Windows.Forms.Button();
-            this.buttonCalendar = new System.Windows.Forms.Button();
+            this.buttonReports = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.buttonCalendar = new System.Windows.Forms.Button();
+            this.buttonAppointments = new System.Windows.Forms.Button();
+            this.buttonCustomers = new System.Windows.Forms.Button();
             this.panelAppointments = new System.Windows.Forms.Panel();
-            this.panelCustomers = new System.Windows.Forms.Panel();
-            this.panelCalendar = new System.Windows.Forms.Panel();
-            this.panelDisplayHeading = new System.Windows.Forms.Panel();
-            this.labelDisplayHeading = new System.Windows.Forms.Label();
-            this.dgvCustomers = new System.Windows.Forms.DataGridView();
-            this.buttonCustomerAdd = new System.Windows.Forms.Button();
-            this.buttonCustomerUpdate = new System.Windows.Forms.Button();
-            this.buttonCustomerDelete = new System.Windows.Forms.Button();
             this.buttonAppointmentDelete = new System.Windows.Forms.Button();
             this.buttonAppointmentUpdate = new System.Windows.Forms.Button();
             this.buttonAppointmentAdd = new System.Windows.Forms.Button();
             this.dgvAppointments = new System.Windows.Forms.DataGridView();
+            this.panelCustomers = new System.Windows.Forms.Panel();
+            this.buttonCustomerDelete = new System.Windows.Forms.Button();
+            this.buttonCustomerUpdate = new System.Windows.Forms.Button();
+            this.buttonCustomerAdd = new System.Windows.Forms.Button();
+            this.dgvCustomers = new System.Windows.Forms.DataGridView();
+            this.panelCalendar = new System.Windows.Forms.Panel();
             this.buttonCalendarMonth = new System.Windows.Forms.Button();
             this.buttonCalendarWeek = new System.Windows.Forms.Button();
             this.buttonCalendarAll = new System.Windows.Forms.Button();
             this.dgvCalendar = new System.Windows.Forms.DataGridView();
+            this.panelDisplayHeading = new System.Windows.Forms.Panel();
+            this.labelDisplayHeading = new System.Windows.Forms.Label();
+            this.panelReports = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labelReport3 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelReport1 = new System.Windows.Forms.Label();
+            this.labelReport2 = new System.Windows.Forms.Label();
+            this.cbAppointmentMonth = new System.Windows.Forms.ComboBox();
+            this.cbAppointmentType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonReport3 = new System.Windows.Forms.Button();
+            this.buttonReportConsultantSchedule = new System.Windows.Forms.Button();
+            this.buttonReportTypeByMonth = new System.Windows.Forms.Button();
             this.panelNavigation.SuspendLayout();
             this.panelAppointments.SuspendLayout();
-            this.panelCustomers.SuspendLayout();
-            this.panelCalendar.SuspendLayout();
-            this.panelDisplayHeading.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
+            this.panelCustomers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
+            this.panelCalendar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalendar)).BeginInit();
+            this.panelDisplayHeading.SuspendLayout();
+            this.panelReports.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelNavigation
             // 
+            this.panelNavigation.Controls.Add(this.buttonReports);
             this.panelNavigation.Controls.Add(this.buttonLogout);
             this.panelNavigation.Controls.Add(this.buttonCalendar);
             this.panelNavigation.Controls.Add(this.buttonAppointments);
@@ -71,38 +87,15 @@
             this.panelNavigation.Size = new System.Drawing.Size(200, 560);
             this.panelNavigation.TabIndex = 0;
             // 
-            // buttonCustomers
+            // buttonReports
             // 
-            this.buttonCustomers.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCustomers.Location = new System.Drawing.Point(23, 100);
-            this.buttonCustomers.Name = "buttonCustomers";
-            this.buttonCustomers.Size = new System.Drawing.Size(150, 30);
-            this.buttonCustomers.TabIndex = 0;
-            this.buttonCustomers.Text = "Customers";
-            this.buttonCustomers.UseVisualStyleBackColor = true;
-            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
-            // 
-            // buttonAppointments
-            // 
-            this.buttonAppointments.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAppointments.Location = new System.Drawing.Point(23, 175);
-            this.buttonAppointments.Name = "buttonAppointments";
-            this.buttonAppointments.Size = new System.Drawing.Size(150, 30);
-            this.buttonAppointments.TabIndex = 1;
-            this.buttonAppointments.Text = "Appointments";
-            this.buttonAppointments.UseVisualStyleBackColor = true;
-            this.buttonAppointments.Click += new System.EventHandler(this.buttonAppointments_Click);
-            // 
-            // buttonCalendar
-            // 
-            this.buttonCalendar.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCalendar.Location = new System.Drawing.Point(23, 250);
-            this.buttonCalendar.Name = "buttonCalendar";
-            this.buttonCalendar.Size = new System.Drawing.Size(150, 30);
-            this.buttonCalendar.TabIndex = 2;
-            this.buttonCalendar.Text = "Calendar";
-            this.buttonCalendar.UseVisualStyleBackColor = true;
-            this.buttonCalendar.Click += new System.EventHandler(this.buttonCalendar_Click);
+            this.buttonReports.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReports.Location = new System.Drawing.Point(23, 275);
+            this.buttonReports.Name = "buttonReports";
+            this.buttonReports.Size = new System.Drawing.Size(150, 30);
+            this.buttonReports.TabIndex = 4;
+            this.buttonReports.Text = "Reports";
+            this.buttonReports.UseVisualStyleBackColor = true;
             // 
             // buttonLogout
             // 
@@ -115,6 +108,39 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
+            // buttonCalendar
+            // 
+            this.buttonCalendar.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCalendar.Location = new System.Drawing.Point(23, 200);
+            this.buttonCalendar.Name = "buttonCalendar";
+            this.buttonCalendar.Size = new System.Drawing.Size(150, 30);
+            this.buttonCalendar.TabIndex = 2;
+            this.buttonCalendar.Text = "Calendar";
+            this.buttonCalendar.UseVisualStyleBackColor = true;
+            this.buttonCalendar.Click += new System.EventHandler(this.buttonCalendar_Click);
+            // 
+            // buttonAppointments
+            // 
+            this.buttonAppointments.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAppointments.Location = new System.Drawing.Point(23, 125);
+            this.buttonAppointments.Name = "buttonAppointments";
+            this.buttonAppointments.Size = new System.Drawing.Size(150, 30);
+            this.buttonAppointments.TabIndex = 1;
+            this.buttonAppointments.Text = "Appointments";
+            this.buttonAppointments.UseVisualStyleBackColor = true;
+            this.buttonAppointments.Click += new System.EventHandler(this.buttonAppointments_Click);
+            // 
+            // buttonCustomers
+            // 
+            this.buttonCustomers.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCustomers.Location = new System.Drawing.Point(23, 50);
+            this.buttonCustomers.Name = "buttonCustomers";
+            this.buttonCustomers.Size = new System.Drawing.Size(150, 30);
+            this.buttonCustomers.TabIndex = 0;
+            this.buttonCustomers.Text = "Customers";
+            this.buttonCustomers.UseVisualStyleBackColor = true;
+            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
+            // 
             // panelAppointments
             // 
             this.panelAppointments.Controls.Add(this.buttonAppointmentDelete);
@@ -125,84 +151,6 @@
             this.panelAppointments.Name = "panelAppointments";
             this.panelAppointments.Size = new System.Drawing.Size(780, 485);
             this.panelAppointments.TabIndex = 1;
-            // 
-            // panelCustomers
-            // 
-            this.panelCustomers.Controls.Add(this.buttonCustomerDelete);
-            this.panelCustomers.Controls.Add(this.buttonCustomerUpdate);
-            this.panelCustomers.Controls.Add(this.buttonCustomerAdd);
-            this.panelCustomers.Controls.Add(this.dgvCustomers);
-            this.panelCustomers.Location = new System.Drawing.Point(200, 75);
-            this.panelCustomers.Name = "panelCustomers";
-            this.panelCustomers.Size = new System.Drawing.Size(780, 485);
-            this.panelCustomers.TabIndex = 2;
-            // 
-            // panelCalendar
-            // 
-            this.panelCalendar.Controls.Add(this.buttonCalendarMonth);
-            this.panelCalendar.Controls.Add(this.buttonCalendarWeek);
-            this.panelCalendar.Controls.Add(this.buttonCalendarAll);
-            this.panelCalendar.Controls.Add(this.dgvCalendar);
-            this.panelCalendar.Location = new System.Drawing.Point(200, 75);
-            this.panelCalendar.Name = "panelCalendar";
-            this.panelCalendar.Size = new System.Drawing.Size(780, 485);
-            this.panelCalendar.TabIndex = 3;
-            // 
-            // panelDisplayHeading
-            // 
-            this.panelDisplayHeading.Controls.Add(this.labelDisplayHeading);
-            this.panelDisplayHeading.Location = new System.Drawing.Point(200, 0);
-            this.panelDisplayHeading.Name = "panelDisplayHeading";
-            this.panelDisplayHeading.Size = new System.Drawing.Size(780, 75);
-            this.panelDisplayHeading.TabIndex = 4;
-            // 
-            // labelDisplayHeading
-            // 
-            this.labelDisplayHeading.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDisplayHeading.Location = new System.Drawing.Point(0, 0);
-            this.labelDisplayHeading.Name = "labelDisplayHeading";
-            this.labelDisplayHeading.Size = new System.Drawing.Size(780, 75);
-            this.labelDisplayHeading.TabIndex = 0;
-            this.labelDisplayHeading.Text = "Customers";
-            this.labelDisplayHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dgvCustomers
-            // 
-            this.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomers.Location = new System.Drawing.Point(40, 25);
-            this.dgvCustomers.Name = "dgvCustomers";
-            this.dgvCustomers.Size = new System.Drawing.Size(700, 350);
-            this.dgvCustomers.TabIndex = 0;
-            // 
-            // buttonCustomerAdd
-            // 
-            this.buttonCustomerAdd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCustomerAdd.Location = new System.Drawing.Point(100, 400);
-            this.buttonCustomerAdd.Name = "buttonCustomerAdd";
-            this.buttonCustomerAdd.Size = new System.Drawing.Size(150, 30);
-            this.buttonCustomerAdd.TabIndex = 1;
-            this.buttonCustomerAdd.Text = "Add";
-            this.buttonCustomerAdd.UseVisualStyleBackColor = true;
-            // 
-            // buttonCustomerUpdate
-            // 
-            this.buttonCustomerUpdate.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCustomerUpdate.Location = new System.Drawing.Point(300, 400);
-            this.buttonCustomerUpdate.Name = "buttonCustomerUpdate";
-            this.buttonCustomerUpdate.Size = new System.Drawing.Size(150, 30);
-            this.buttonCustomerUpdate.TabIndex = 2;
-            this.buttonCustomerUpdate.Text = "Update";
-            this.buttonCustomerUpdate.UseVisualStyleBackColor = true;
-            // 
-            // buttonCustomerDelete
-            // 
-            this.buttonCustomerDelete.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCustomerDelete.Location = new System.Drawing.Point(500, 400);
-            this.buttonCustomerDelete.Name = "buttonCustomerDelete";
-            this.buttonCustomerDelete.Size = new System.Drawing.Size(150, 30);
-            this.buttonCustomerDelete.TabIndex = 3;
-            this.buttonCustomerDelete.Text = "Delete";
-            this.buttonCustomerDelete.UseVisualStyleBackColor = true;
             // 
             // buttonAppointmentDelete
             // 
@@ -242,6 +190,66 @@
             this.dgvAppointments.Size = new System.Drawing.Size(700, 350);
             this.dgvAppointments.TabIndex = 4;
             // 
+            // panelCustomers
+            // 
+            this.panelCustomers.Controls.Add(this.buttonCustomerDelete);
+            this.panelCustomers.Controls.Add(this.buttonCustomerUpdate);
+            this.panelCustomers.Controls.Add(this.buttonCustomerAdd);
+            this.panelCustomers.Controls.Add(this.dgvCustomers);
+            this.panelCustomers.Location = new System.Drawing.Point(200, 75);
+            this.panelCustomers.Name = "panelCustomers";
+            this.panelCustomers.Size = new System.Drawing.Size(780, 485);
+            this.panelCustomers.TabIndex = 2;
+            // 
+            // buttonCustomerDelete
+            // 
+            this.buttonCustomerDelete.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCustomerDelete.Location = new System.Drawing.Point(500, 400);
+            this.buttonCustomerDelete.Name = "buttonCustomerDelete";
+            this.buttonCustomerDelete.Size = new System.Drawing.Size(150, 30);
+            this.buttonCustomerDelete.TabIndex = 3;
+            this.buttonCustomerDelete.Text = "Delete";
+            this.buttonCustomerDelete.UseVisualStyleBackColor = true;
+            // 
+            // buttonCustomerUpdate
+            // 
+            this.buttonCustomerUpdate.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCustomerUpdate.Location = new System.Drawing.Point(300, 400);
+            this.buttonCustomerUpdate.Name = "buttonCustomerUpdate";
+            this.buttonCustomerUpdate.Size = new System.Drawing.Size(150, 30);
+            this.buttonCustomerUpdate.TabIndex = 2;
+            this.buttonCustomerUpdate.Text = "Update";
+            this.buttonCustomerUpdate.UseVisualStyleBackColor = true;
+            // 
+            // buttonCustomerAdd
+            // 
+            this.buttonCustomerAdd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCustomerAdd.Location = new System.Drawing.Point(100, 400);
+            this.buttonCustomerAdd.Name = "buttonCustomerAdd";
+            this.buttonCustomerAdd.Size = new System.Drawing.Size(150, 30);
+            this.buttonCustomerAdd.TabIndex = 1;
+            this.buttonCustomerAdd.Text = "Add";
+            this.buttonCustomerAdd.UseVisualStyleBackColor = true;
+            // 
+            // dgvCustomers
+            // 
+            this.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomers.Location = new System.Drawing.Point(40, 25);
+            this.dgvCustomers.Name = "dgvCustomers";
+            this.dgvCustomers.Size = new System.Drawing.Size(700, 350);
+            this.dgvCustomers.TabIndex = 0;
+            // 
+            // panelCalendar
+            // 
+            this.panelCalendar.Controls.Add(this.buttonCalendarMonth);
+            this.panelCalendar.Controls.Add(this.buttonCalendarWeek);
+            this.panelCalendar.Controls.Add(this.buttonCalendarAll);
+            this.panelCalendar.Controls.Add(this.dgvCalendar);
+            this.panelCalendar.Location = new System.Drawing.Point(200, 75);
+            this.panelCalendar.Name = "panelCalendar";
+            this.panelCalendar.Size = new System.Drawing.Size(780, 485);
+            this.panelCalendar.TabIndex = 3;
+            // 
             // buttonCalendarMonth
             // 
             this.buttonCalendarMonth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -280,6 +288,170 @@
             this.dgvCalendar.Size = new System.Drawing.Size(700, 350);
             this.dgvCalendar.TabIndex = 8;
             // 
+            // panelDisplayHeading
+            // 
+            this.panelDisplayHeading.Controls.Add(this.labelDisplayHeading);
+            this.panelDisplayHeading.Location = new System.Drawing.Point(200, 0);
+            this.panelDisplayHeading.Name = "panelDisplayHeading";
+            this.panelDisplayHeading.Size = new System.Drawing.Size(780, 75);
+            this.panelDisplayHeading.TabIndex = 4;
+            // 
+            // labelDisplayHeading
+            // 
+            this.labelDisplayHeading.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDisplayHeading.Location = new System.Drawing.Point(0, 0);
+            this.labelDisplayHeading.Name = "labelDisplayHeading";
+            this.labelDisplayHeading.Size = new System.Drawing.Size(780, 75);
+            this.labelDisplayHeading.TabIndex = 0;
+            this.labelDisplayHeading.Text = "Customers";
+            this.labelDisplayHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelReports
+            // 
+            this.panelReports.Controls.Add(this.label6);
+            this.panelReports.Controls.Add(this.labelReport3);
+            this.panelReports.Controls.Add(this.comboBox1);
+            this.panelReports.Controls.Add(this.label5);
+            this.panelReports.Controls.Add(this.labelReport1);
+            this.panelReports.Controls.Add(this.labelReport2);
+            this.panelReports.Controls.Add(this.cbAppointmentMonth);
+            this.panelReports.Controls.Add(this.cbAppointmentType);
+            this.panelReports.Controls.Add(this.label1);
+            this.panelReports.Controls.Add(this.buttonReport3);
+            this.panelReports.Controls.Add(this.buttonReportConsultantSchedule);
+            this.panelReports.Controls.Add(this.buttonReportTypeByMonth);
+            this.panelReports.Location = new System.Drawing.Point(200, 75);
+            this.panelReports.Name = "panelReports";
+            this.panelReports.Size = new System.Drawing.Size(780, 485);
+            this.panelReports.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(139, 355);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(500, 50);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Third Report";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelReport3
+            // 
+            this.labelReport3.AutoSize = true;
+            this.labelReport3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReport3.Location = new System.Drawing.Point(272, 255);
+            this.labelReport3.Name = "labelReport3";
+            this.labelReport3.Size = new System.Drawing.Size(90, 19);
+            this.labelReport3.TabIndex = 13;
+            this.labelReport3.Text = "Consultant:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(368, 253);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(139, 200);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(500, 50);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Consultant Schedule";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelReport1
+            // 
+            this.labelReport1.AutoSize = true;
+            this.labelReport1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReport1.Location = new System.Drawing.Point(178, 84);
+            this.labelReport1.Name = "labelReport1";
+            this.labelReport1.Size = new System.Drawing.Size(50, 19);
+            this.labelReport1.TabIndex = 8;
+            this.labelReport1.Text = "Type:";
+            // 
+            // labelReport2
+            // 
+            this.labelReport2.AutoSize = true;
+            this.labelReport2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReport2.Location = new System.Drawing.Point(407, 85);
+            this.labelReport2.Name = "labelReport2";
+            this.labelReport2.Size = new System.Drawing.Size(59, 19);
+            this.labelReport2.TabIndex = 7;
+            this.labelReport2.Text = "Month:";
+            // 
+            // cbAppointmentMonth
+            // 
+            this.cbAppointmentMonth.FormattingEnabled = true;
+            this.cbAppointmentMonth.Location = new System.Drawing.Point(234, 83);
+            this.cbAppointmentMonth.Name = "cbAppointmentMonth";
+            this.cbAppointmentMonth.Size = new System.Drawing.Size(121, 21);
+            this.cbAppointmentMonth.TabIndex = 6;
+            // 
+            // cbAppointmentType
+            // 
+            this.cbAppointmentType.FormattingEnabled = true;
+            this.cbAppointmentType.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"});
+            this.cbAppointmentType.Location = new System.Drawing.Point(472, 83);
+            this.cbAppointmentType.Name = "cbAppointmentType";
+            this.cbAppointmentType.Size = new System.Drawing.Size(121, 21);
+            this.cbAppointmentType.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(139, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(500, 50);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Appointment Type By Month";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonReport3
+            // 
+            this.buttonReport3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReport3.Location = new System.Drawing.Point(316, 411);
+            this.buttonReport3.Name = "buttonReport3";
+            this.buttonReport3.Size = new System.Drawing.Size(150, 30);
+            this.buttonReport3.TabIndex = 3;
+            this.buttonReport3.Text = "View";
+            this.buttonReport3.UseVisualStyleBackColor = true;
+            // 
+            // buttonReportConsultantSchedule
+            // 
+            this.buttonReportConsultantSchedule.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReportConsultantSchedule.Location = new System.Drawing.Point(316, 294);
+            this.buttonReportConsultantSchedule.Name = "buttonReportConsultantSchedule";
+            this.buttonReportConsultantSchedule.Size = new System.Drawing.Size(150, 30);
+            this.buttonReportConsultantSchedule.TabIndex = 2;
+            this.buttonReportConsultantSchedule.Text = "View";
+            this.buttonReportConsultantSchedule.UseVisualStyleBackColor = true;
+            // 
+            // buttonReportTypeByMonth
+            // 
+            this.buttonReportTypeByMonth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReportTypeByMonth.Location = new System.Drawing.Point(316, 129);
+            this.buttonReportTypeByMonth.Name = "buttonReportTypeByMonth";
+            this.buttonReportTypeByMonth.Size = new System.Drawing.Size(150, 30);
+            this.buttonReportTypeByMonth.TabIndex = 1;
+            this.buttonReportTypeByMonth.Text = "View";
+            this.buttonReportTypeByMonth.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,16 +462,19 @@
             this.Controls.Add(this.panelCustomers);
             this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
+            this.Controls.Add(this.panelReports);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);
             this.panelAppointments.ResumeLayout(false);
-            this.panelCustomers.ResumeLayout(false);
-            this.panelCalendar.ResumeLayout(false);
-            this.panelDisplayHeading.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
+            this.panelCustomers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
+            this.panelCalendar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalendar)).EndInit();
+            this.panelDisplayHeading.ResumeLayout(false);
+            this.panelReports.ResumeLayout(false);
+            this.panelReports.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -328,5 +503,19 @@
         private System.Windows.Forms.Button buttonCalendarWeek;
         private System.Windows.Forms.Button buttonCalendarAll;
         private System.Windows.Forms.DataGridView dgvCalendar;
+        private System.Windows.Forms.Button buttonReports;
+        private System.Windows.Forms.Panel panelReports;
+        private System.Windows.Forms.ComboBox cbAppointmentMonth;
+        private System.Windows.Forms.ComboBox cbAppointmentType;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonReport3;
+        private System.Windows.Forms.Button buttonReportConsultantSchedule;
+        private System.Windows.Forms.Button buttonReportTypeByMonth;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelReport3;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelReport1;
+        private System.Windows.Forms.Label labelReport2;
     }
 }
