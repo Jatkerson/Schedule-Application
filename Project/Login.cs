@@ -35,11 +35,11 @@ namespace Project
             switch (languageCode)
             {
                 case "en":
-                    MessageBox.Show("translate to english");
+                    //MessageBox.Show("translate to english");
                     break;
                
                 case "es":
-                    MessageBox.Show("translate to spanish");
+                    //MessageBox.Show("translate to spanish");
                     break;
             }
         }
@@ -49,19 +49,33 @@ namespace Project
         {
             MySqlConnection c = DBConnection.conn;
 
-            if (c.State == ConnectionState.Open)
+            string userName = tbLoginUsername.Text;
+            string password = tbLoginPassword.Text;
+
+            try
             {
-                MessageBox.Show("Connection Open");
+
+                string query = "SELECT COUNT(userID) FROM user WHERE userName='" + userName + "' AND password='" + password + "'";
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                object result = cmd.ExecuteScalar();
+
+                if(result.ToString() == "0")
+                {
+                    MessageBox.Show("Incorrect username and password combination");
+                }
+                else if(result.ToString() == "1")
+                {
+                    this.Visible = false;
+                    MainForm newForm = new MainForm();
+                    newForm.Show();
+                }
+
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Connection Closed");
+                MessageBox.Show("error: " + ex.ToString());
             }
 
-
-            this.Visible = false;
-            MainForm newForm = new MainForm();
-            newForm.Show();
         }
     }
 

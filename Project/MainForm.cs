@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using Project.Database;
 
 namespace Project
 {
@@ -23,6 +25,48 @@ namespace Project
 
         private void displayCustomers()
         {
+
+            // Ensure no customers in list
+            for(int i = 0; i < Customer.allCustomers.Count; i++)
+            {
+                Customer.allCustomers.RemoveAt(i);
+            }
+
+            MySqlConnection c = DBConnection.conn;
+
+            try
+            {
+                // Get all customers
+                string query = "SELECT customerId, customerName, address, city, postalCode, country, phone FROM customer INNER JOIN address ON address.addressId=customer.addressId INNER JOIN city ON city.cityId=address.cityId INNER JOIN country ON country.countryId=city.countryId";
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    Customer newCustomer = new Customer(Convert.ToInt32(rdr[0]), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(), rdr[4].ToString(), rdr[5].ToString(), rdr[6].ToString());
+
+                    Customer.allCustomers.Add(newCustomer);
+                }
+
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
+
+            /*
+            // Ensure no customers in list
+            for (int i = 0; i < Customer.allCustomers.Count; i++)
+            {
+                MessageBox.Show(Customer.allCustomers[i].name);
+            }
+            */
+
+            dgvCustomers.DataSource = Customer.allCustomers;
+
 
             labelDisplayHeading.Text = "Customers";
 
@@ -43,6 +87,48 @@ namespace Project
 
         private void displayAppointments()
         {
+
+            // Ensure no customers in list
+            for (int i = 0; i < Appointment.allAppointments.Count; i++)
+            {
+                Appointment.allAppointments.RemoveAt(i);
+            }
+
+            MySqlConnection c = DBConnection.conn;
+
+            try
+            {
+                // Get all customers
+                string query = "SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId";
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    Appointment newAppointment = new Appointment(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1]), rdr[2].ToString(), rdr[3].ToString(), rdr[4].ToString(), rdr[5].ToString());
+
+                    Appointment.allAppointments.Add(newAppointment);
+                }
+
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
+
+            /*
+            // Ensure no customers in list
+            for (int i = 0; i < Customer.allCustomers.Count; i++)
+            {
+                MessageBox.Show(Customer.allCustomers[i].name);
+            }
+            */
+
+            dgvAppointments.DataSource = Appointment.allAppointments;
+
 
             labelDisplayHeading.Text = "Appointments";
 

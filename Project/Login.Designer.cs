@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.loginLabelUsername = new System.Windows.Forms.Label();
-            this.loginTextBoxUsername = new System.Windows.Forms.TextBox();
-            this.loginTextBoxPassword = new System.Windows.Forms.TextBox();
+            this.tbLoginUsername = new System.Windows.Forms.TextBox();
+            this.tbLoginPassword = new System.Windows.Forms.TextBox();
             this.loginLabelPassword = new System.Windows.Forms.Label();
             this.loginLabelLogin = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
@@ -46,21 +46,21 @@
             this.loginLabelUsername.TabIndex = 0;
             this.loginLabelUsername.Text = "Username:";
             // 
-            // loginTextBoxUsername
+            // tbLoginUsername
             // 
-            this.loginTextBoxUsername.Location = new System.Drawing.Point(177, 89);
-            this.loginTextBoxUsername.Name = "loginTextBoxUsername";
-            this.loginTextBoxUsername.Size = new System.Drawing.Size(200, 20);
-            this.loginTextBoxUsername.TabIndex = 1;
+            this.tbLoginUsername.Location = new System.Drawing.Point(177, 89);
+            this.tbLoginUsername.Name = "tbLoginUsername";
+            this.tbLoginUsername.Size = new System.Drawing.Size(200, 20);
+            this.tbLoginUsername.TabIndex = 1;
             // 
-            // loginTextBoxPassword
+            // tbLoginPassword
             // 
-            this.loginTextBoxPassword.Location = new System.Drawing.Point(177, 133);
-            this.loginTextBoxPassword.Name = "loginTextBoxPassword";
-            this.loginTextBoxPassword.PasswordChar = '*';
-            this.loginTextBoxPassword.Size = new System.Drawing.Size(200, 20);
-            this.loginTextBoxPassword.TabIndex = 3;
-            this.loginTextBoxPassword.UseSystemPasswordChar = true;
+            this.tbLoginPassword.Location = new System.Drawing.Point(177, 133);
+            this.tbLoginPassword.Name = "tbLoginPassword";
+            this.tbLoginPassword.PasswordChar = '*';
+            this.tbLoginPassword.Size = new System.Drawing.Size(200, 20);
+            this.tbLoginPassword.TabIndex = 3;
+            this.tbLoginPassword.UseSystemPasswordChar = true;
             // 
             // loginLabelPassword
             // 
@@ -100,9 +100,9 @@
             this.ClientSize = new System.Drawing.Size(484, 261);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.loginLabelLogin);
-            this.Controls.Add(this.loginTextBoxPassword);
+            this.Controls.Add(this.tbLoginPassword);
             this.Controls.Add(this.loginLabelPassword);
-            this.Controls.Add(this.loginTextBoxUsername);
+            this.Controls.Add(this.tbLoginUsername);
             this.Controls.Add(this.loginLabelUsername);
             this.Name = "Login";
             this.Text = "Form1";
@@ -114,8 +114,8 @@
         #endregion
 
         private System.Windows.Forms.Label loginLabelUsername;
-        private System.Windows.Forms.TextBox loginTextBoxUsername;
-        private System.Windows.Forms.TextBox loginTextBoxPassword;
+        private System.Windows.Forms.TextBox tbLoginUsername;
+        private System.Windows.Forms.TextBox tbLoginPassword;
         private System.Windows.Forms.Label loginLabelPassword;
         private System.Windows.Forms.Label loginLabelLogin;
         private System.Windows.Forms.Button buttonLogin;

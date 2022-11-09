@@ -470,10 +470,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.panelReports);
             this.Controls.Add(this.panelCustomers);
             this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
+            this.Controls.Add(this.panelReports);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);

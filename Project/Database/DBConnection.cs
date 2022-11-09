@@ -23,7 +23,7 @@ namespace Project.Database
                 conn = new MySqlConnection(constr);
                 conn.Open();
 
-                MessageBox.Show("connected");
+                //MessageBox.Show("connected");
             }
             catch (MySqlException ex)
             {
