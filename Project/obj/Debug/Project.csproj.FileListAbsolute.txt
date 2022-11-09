@@ -45,3 +45,5 @@ C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\
 C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\Debug\Project.csproj.CopyComplete
 C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\Debug\Project.exe
 C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\Debug\Project.pdb
+C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\Debug\Project.CustomerForm.resources
+C:\Users\Jatke\source\repos\Software 2\Project\Schedule-Application\Project\obj\Debug\Project.AppointmentForm.resources

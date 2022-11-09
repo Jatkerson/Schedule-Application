@@ -54,12 +54,12 @@
             this.panelReports = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.labelReport3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbReportConsultant = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.labelReport1 = new System.Windows.Forms.Label();
             this.labelReport2 = new System.Windows.Forms.Label();
-            this.cbAppointmentMonth = new System.Windows.Forms.ComboBox();
-            this.cbAppointmentType = new System.Windows.Forms.ComboBox();
+            this.cbReportType = new System.Windows.Forms.ComboBox();
+            this.cbReportMonth = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonReport3 = new System.Windows.Forms.Button();
             this.buttonReportConsultantSchedule = new System.Windows.Forms.Button();
@@ -96,6 +96,7 @@
             this.buttonReports.TabIndex = 4;
             this.buttonReports.Text = "Reports";
             this.buttonReports.UseVisualStyleBackColor = true;
+            this.buttonReports.Click += new System.EventHandler(this.buttonReports_Click);
             // 
             // buttonLogout
             // 
@@ -181,6 +182,7 @@
             this.buttonAppointmentAdd.TabIndex = 5;
             this.buttonAppointmentAdd.Text = "Add";
             this.buttonAppointmentAdd.UseVisualStyleBackColor = true;
+            this.buttonAppointmentAdd.Click += new System.EventHandler(this.buttonAppointmentAdd_Click);
             // 
             // dgvAppointments
             // 
@@ -220,6 +222,7 @@
             this.buttonCustomerUpdate.TabIndex = 2;
             this.buttonCustomerUpdate.Text = "Update";
             this.buttonCustomerUpdate.UseVisualStyleBackColor = true;
+            this.buttonCustomerUpdate.Click += new System.EventHandler(this.buttonCustomerUpdate_Click);
             // 
             // buttonCustomerAdd
             // 
@@ -230,6 +233,7 @@
             this.buttonCustomerAdd.TabIndex = 1;
             this.buttonCustomerAdd.Text = "Add";
             this.buttonCustomerAdd.UseVisualStyleBackColor = true;
+            this.buttonCustomerAdd.Click += new System.EventHandler(this.buttonCustomerAdd_Click);
             // 
             // dgvCustomers
             // 
@@ -310,12 +314,12 @@
             // 
             this.panelReports.Controls.Add(this.label6);
             this.panelReports.Controls.Add(this.labelReport3);
-            this.panelReports.Controls.Add(this.comboBox1);
+            this.panelReports.Controls.Add(this.cbReportConsultant);
             this.panelReports.Controls.Add(this.label5);
             this.panelReports.Controls.Add(this.labelReport1);
             this.panelReports.Controls.Add(this.labelReport2);
-            this.panelReports.Controls.Add(this.cbAppointmentMonth);
-            this.panelReports.Controls.Add(this.cbAppointmentType);
+            this.panelReports.Controls.Add(this.cbReportType);
+            this.panelReports.Controls.Add(this.cbReportMonth);
             this.panelReports.Controls.Add(this.label1);
             this.panelReports.Controls.Add(this.buttonReport3);
             this.panelReports.Controls.Add(this.buttonReportConsultantSchedule);
@@ -345,13 +349,15 @@
             this.labelReport3.TabIndex = 13;
             this.labelReport3.Text = "Consultant:";
             // 
-            // comboBox1
+            // cbReportConsultant
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(368, 253);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 11;
+            this.cbReportConsultant.FormattingEnabled = true;
+            this.cbReportConsultant.Items.AddRange(new object[] {
+            ""});
+            this.cbReportConsultant.Location = new System.Drawing.Point(368, 253);
+            this.cbReportConsultant.Name = "cbReportConsultant";
+            this.cbReportConsultant.Size = new System.Drawing.Size(202, 21);
+            this.cbReportConsultant.TabIndex = 11;
             // 
             // label5
             // 
@@ -383,18 +389,23 @@
             this.labelReport2.TabIndex = 7;
             this.labelReport2.Text = "Month:";
             // 
-            // cbAppointmentMonth
+            // cbReportType
             // 
-            this.cbAppointmentMonth.FormattingEnabled = true;
-            this.cbAppointmentMonth.Location = new System.Drawing.Point(234, 83);
-            this.cbAppointmentMonth.Name = "cbAppointmentMonth";
-            this.cbAppointmentMonth.Size = new System.Drawing.Size(121, 21);
-            this.cbAppointmentMonth.TabIndex = 6;
+            this.cbReportType.FormattingEnabled = true;
+            this.cbReportType.Items.AddRange(new object[] {
+            "",
+            "Presentation",
+            "Scrum"});
+            this.cbReportType.Location = new System.Drawing.Point(234, 83);
+            this.cbReportType.Name = "cbReportType";
+            this.cbReportType.Size = new System.Drawing.Size(121, 21);
+            this.cbReportType.TabIndex = 6;
             // 
-            // cbAppointmentType
+            // cbReportMonth
             // 
-            this.cbAppointmentType.FormattingEnabled = true;
-            this.cbAppointmentType.Items.AddRange(new object[] {
+            this.cbReportMonth.FormattingEnabled = true;
+            this.cbReportMonth.Items.AddRange(new object[] {
+            "",
             "January",
             "February",
             "March",
@@ -407,10 +418,10 @@
             "October",
             "November",
             "December"});
-            this.cbAppointmentType.Location = new System.Drawing.Point(472, 83);
-            this.cbAppointmentType.Name = "cbAppointmentType";
-            this.cbAppointmentType.Size = new System.Drawing.Size(121, 21);
-            this.cbAppointmentType.TabIndex = 5;
+            this.cbReportMonth.Location = new System.Drawing.Point(472, 83);
+            this.cbReportMonth.Name = "cbReportMonth";
+            this.cbReportMonth.Size = new System.Drawing.Size(121, 21);
+            this.cbReportMonth.TabIndex = 5;
             // 
             // label1
             // 
@@ -459,10 +470,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
+            this.Controls.Add(this.panelReports);
             this.Controls.Add(this.panelCustomers);
             this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
-            this.Controls.Add(this.panelReports);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);
@@ -505,15 +516,15 @@
         private System.Windows.Forms.DataGridView dgvCalendar;
         private System.Windows.Forms.Button buttonReports;
         private System.Windows.Forms.Panel panelReports;
-        private System.Windows.Forms.ComboBox cbAppointmentMonth;
-        private System.Windows.Forms.ComboBox cbAppointmentType;
+        private System.Windows.Forms.ComboBox cbReportType;
+        private System.Windows.Forms.ComboBox cbReportMonth;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonReport3;
         private System.Windows.Forms.Button buttonReportConsultantSchedule;
         private System.Windows.Forms.Button buttonReportTypeByMonth;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelReport3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbReportConsultant;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelReport1;
         private System.Windows.Forms.Label labelReport2;
