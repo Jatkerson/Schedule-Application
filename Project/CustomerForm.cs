@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Project.Database;
 using static Project.Login;
+using static Project.MainForm;
 
 
 namespace Project
@@ -261,6 +262,7 @@ namespace Project
                     cmd.ExecuteNonQuery();
 
 
+                    MainForm.form.displayCustomers();
                     MessageBox.Show("New customer added");
 
                 }

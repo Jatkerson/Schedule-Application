@@ -14,23 +14,33 @@ namespace Project
 {
     public partial class MainForm : Form
     {
+        public static MainForm form;
+        public int selectedCustomerId = -1;
 
         public MainForm()
         {
-            InitializeComponent();
+            if (form == null)
+            {
+                form = this;
+            }
 
+            InitializeComponent();
             displayCustomers();
 
         }
 
-        private void displayCustomers()
+        public void displayCustomers()
         {
+            dgvCustomers.DataSource = null;
+            dgvCustomers.Refresh();
+            //dgvCustomers.Rows.Clear();
 
             // Ensure no customers in list
-            for(int i = 0; i < Customer.allCustomers.Count; i++)
+            while(Customer.allCustomers.Count > 0)
             {
-                Customer.allCustomers.RemoveAt(i);
+                Customer.allCustomers.RemoveAt(0);
             }
+
 
             MySqlConnection c = DBConnection.conn;
 
@@ -57,6 +67,7 @@ namespace Project
                 MessageBox.Show("error: " + ex.ToString());
             }
 
+
             /*
             // Ensure no customers in list
             for (int i = 0; i < Customer.allCustomers.Count; i++)
@@ -66,7 +77,8 @@ namespace Project
             */
 
             dgvCustomers.DataSource = Customer.allCustomers;
-
+            dgvCustomers.ClearSelection();
+            selectedCustomerId = -1;
 
             labelDisplayHeading.Text = "Customers";
 
@@ -88,17 +100,20 @@ namespace Project
         private void displayAppointments()
         {
 
-            // Ensure no customers in list
-            for (int i = 0; i < Appointment.allAppointments.Count; i++)
+            dgvAppointments.DataSource = null;
+            dgvAppointments.Refresh();
+
+            // Ensure no appointments in list
+            while (Appointment.allAppointments.Count > 0)
             {
-                Appointment.allAppointments.RemoveAt(i);
+                Appointment.allAppointments.RemoveAt(0);
             }
 
             MySqlConnection c = DBConnection.conn;
 
             try
             {
-                // Get all customers
+                // Get all appointments
                 string query = "SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -252,6 +267,49 @@ namespace Project
         private void dgvCalendar_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvCalendar.ClearSelection();
+        }
+
+        private void dgvCustomers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedCustomerId = Convert.ToInt32(dgvCustomers.CurrentRow.Cells[0].Value);
+
+            if(selectedCustomerId > 0)
+            {
+                buttonCustomerDelete.Enabled = true;
+                buttonCustomerUpdate.Enabled = true;
+            }
+            else
+            {
+                buttonCustomerDelete.Enabled = false;
+                buttonCustomerUpdate.Enabled = false;
+            }
+        }
+
+        private void buttonCustomerDelete_Click(object sender, EventArgs e)
+        {
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this customer?", "Delete Customer", MessageBoxButtons.YesNo);
+            
+            if(dialogResult == DialogResult.Yes)
+            {
+
+                MySqlConnection c = DBConnection.conn;
+
+                string query = "DELETE country, city, address, customer FROM country JOIN city ON city.countryId = country.countryId JOIN address on address.cityId = city.cityId JOIN customer ON customer.addressId = address.addressId WHERE customerId = " + selectedCustomerId;
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                cmd.ExecuteNonQuery();
+
+                displayCustomers();
+                MessageBox.Show("Customer deleted");
+
+            }
+            else if(dialogResult == DialogResult.No)
+            {
+
+            }
+
+
+
         }
     }
 }
