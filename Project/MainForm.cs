@@ -238,5 +238,20 @@ namespace Project
             newForm.Show();
             this.Visible = false;
         }
+
+        private void dgvCustomers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvCustomers.ClearSelection();
+        }
+
+        private void dgvAppointments_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvAppointments.ClearSelection();
+        }
+
+        private void dgvCalendar_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvCalendar.ClearSelection();
+        }
     }
 }

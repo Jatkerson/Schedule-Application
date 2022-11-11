@@ -16,32 +16,11 @@ namespace Project
 {
     public partial class Login : Form
     {
+        public static string userName = "";
+
         public Login()
         {
             InitializeComponent();
-
-            detectLanguage();
-        }
-
-
-        public void detectLanguage()
-        {
-            string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            translateToLanguage(languageCode);
-        }
-
-        public void translateToLanguage(string languageCode)
-        {
-            switch (languageCode)
-            {
-                case "en":
-                    //MessageBox.Show("translate to english");
-                    break;
-               
-                case "es":
-                    //MessageBox.Show("translate to spanish");
-                    break;
-            }
         }
 
 
@@ -49,7 +28,7 @@ namespace Project
         {
             MySqlConnection c = DBConnection.conn;
 
-            string userName = tbLoginUsername.Text;
+            userName = tbLoginUsername.Text;
             string password = tbLoginPassword.Text;
 
             try
@@ -61,7 +40,17 @@ namespace Project
 
                 if(result.ToString() == "0")
                 {
-                    MessageBox.Show("Incorrect username and password combination");
+                    string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+                    if(languageCode == "en")
+                    {
+                        MessageBox.Show("Incorrect username and password combination");
+                    }
+                    else if(languageCode == "es")
+                    {
+                        MessageBox.Show("Combinación incorrecta de nombre de usuario y contraseña");
+                    }
+
                 }
                 else if(result.ToString() == "1")
                 {

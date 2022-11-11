@@ -188,9 +188,13 @@
             // 
             this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAppointments.Location = new System.Drawing.Point(40, 25);
+            this.dgvAppointments.MultiSelect = false;
             this.dgvAppointments.Name = "dgvAppointments";
+            this.dgvAppointments.ReadOnly = true;
+            this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAppointments.Size = new System.Drawing.Size(700, 350);
             this.dgvAppointments.TabIndex = 4;
+            this.dgvAppointments.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvAppointments_DataBindingComplete);
             // 
             // panelCustomers
             // 
@@ -239,9 +243,13 @@
             // 
             this.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCustomers.Location = new System.Drawing.Point(40, 25);
+            this.dgvCustomers.MultiSelect = false;
             this.dgvCustomers.Name = "dgvCustomers";
+            this.dgvCustomers.ReadOnly = true;
+            this.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCustomers.Size = new System.Drawing.Size(700, 350);
             this.dgvCustomers.TabIndex = 0;
+            this.dgvCustomers.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCustomers_DataBindingComplete);
             // 
             // panelCalendar
             // 
@@ -288,9 +296,13 @@
             // 
             this.dgvCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCalendar.Location = new System.Drawing.Point(40, 25);
+            this.dgvCalendar.MultiSelect = false;
             this.dgvCalendar.Name = "dgvCalendar";
+            this.dgvCalendar.ReadOnly = true;
+            this.dgvCalendar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCalendar.Size = new System.Drawing.Size(700, 350);
             this.dgvCalendar.TabIndex = 8;
+            this.dgvCalendar.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvCalendar_DataBindingComplete);
             // 
             // panelDisplayHeading
             // 
@@ -470,10 +482,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.panelCustomers);
-            this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
             this.Controls.Add(this.panelReports);
+            this.Controls.Add(this.panelCustomers);
+            this.Controls.Add(this.panelAppointments);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);
