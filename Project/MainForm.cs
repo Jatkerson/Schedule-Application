@@ -15,7 +15,7 @@ namespace Project
     public partial class MainForm : Form
     {
         public static MainForm form;
-        public int selectedCustomerId = -1;
+        public static int selectedCustomerId = -1;
 
         public MainForm()
         {
@@ -47,7 +47,7 @@ namespace Project
             try
             {
                 // Get all customers
-                string query = "SELECT customerId, customerName, address, city, postalCode, country, phone FROM customer INNER JOIN address ON address.addressId=customer.addressId INNER JOIN city ON city.cityId=address.cityId INNER JOIN country ON country.countryId=city.countryId";
+                string query = "SELECT customerId, customerName, address, city, country, postalCode, phone FROM customer INNER JOIN address ON address.addressId=customer.addressId INNER JOIN city ON city.cityId=address.cityId INNER JOIN country ON country.countryId=city.countryId";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -295,7 +295,14 @@ namespace Project
 
                 MySqlConnection c = DBConnection.conn;
 
+                /* Delete country, city and address attached to customer
                 string query = "DELETE country, city, address, customer FROM country JOIN city ON city.countryId = country.countryId JOIN address on address.cityId = city.cityId JOIN customer ON customer.addressId = address.addressId WHERE customerId = " + selectedCustomerId;
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                cmd.ExecuteNonQuery();
+                */
+
+                // Delete only the customer record
+                string query = "DELETE FROM customer WHERE customerId = " + selectedCustomerId;
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 cmd.ExecuteNonQuery();
 

@@ -14,8 +14,8 @@ namespace Project
         public string name { get; set; }
         public string address { get; set; }
         public string city { get; set; }
-        public string postalCode { get; set; }
         public string country { get; set; }
+        public string postalCode { get; set; }
         public string phone { get; set; }
 
         public static List<Customer> allCustomers = new List<Customer>();
@@ -27,14 +27,14 @@ namespace Project
         }
 
 
-        public Customer(int customerId, string customerName, string customerAddress, string customerCity, string customerPostalCode, string customerCountry, string customerPhone)
+        public Customer(int customerId, string customerName, string customerAddress, string customerCity, string customerCountry, string customerPostalCode, string customerPhone)
         {
             id = customerId;
             name = customerName;
             address = customerAddress;
             city = customerCity;
-            postalCode = customerPostalCode;
             country = customerCountry;
+            postalCode = customerPostalCode;
             phone = customerPhone;
         }
     }
