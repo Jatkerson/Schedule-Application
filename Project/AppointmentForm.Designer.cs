@@ -37,10 +37,10 @@
             this.labelAppointmentStart = new System.Windows.Forms.Label();
             this.cbAppointmentType = new System.Windows.Forms.ComboBox();
             this.cbAppointmentCustomer = new System.Windows.Forms.ComboBox();
-            this.cbAppointmentStart = new System.Windows.Forms.ComboBox();
-            this.cbAppointmentEnd = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbAppointmentUserID = new System.Windows.Forms.TextBox();
+            this.dtpAppointmentStart = new System.Windows.Forms.DateTimePicker();
+            this.dtpAppointmentEnd = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // labelAppointmentHeading
@@ -59,7 +59,7 @@
             this.buttonAppointmentCancel.Location = new System.Drawing.Point(440, 375);
             this.buttonAppointmentCancel.Name = "buttonAppointmentCancel";
             this.buttonAppointmentCancel.Size = new System.Drawing.Size(150, 30);
-            this.buttonAppointmentCancel.TabIndex = 20;
+            this.buttonAppointmentCancel.TabIndex = 30;
             this.buttonAppointmentCancel.Text = "Cancel";
             this.buttonAppointmentCancel.UseVisualStyleBackColor = true;
             this.buttonAppointmentCancel.Click += new System.EventHandler(this.buttonAppointmentCancel_Click);
@@ -70,9 +70,10 @@
             this.buttonAppointmentChange.Location = new System.Drawing.Point(225, 375);
             this.buttonAppointmentChange.Name = "buttonAppointmentChange";
             this.buttonAppointmentChange.Size = new System.Drawing.Size(150, 30);
-            this.buttonAppointmentChange.TabIndex = 19;
+            this.buttonAppointmentChange.TabIndex = 29;
             this.buttonAppointmentChange.Text = "Add";
             this.buttonAppointmentChange.UseVisualStyleBackColor = true;
+            this.buttonAppointmentChange.Click += new System.EventHandler(this.buttonAppointmentChange_Click);
             // 
             // labelAppointmentType
             // 
@@ -98,7 +99,7 @@
             // 
             this.labelAppointmentEnd.AutoSize = true;
             this.labelAppointmentEnd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAppointmentEnd.Location = new System.Drawing.Point(261, 248);
+            this.labelAppointmentEnd.Location = new System.Drawing.Point(261, 251);
             this.labelAppointmentEnd.Name = "labelAppointmentEnd";
             this.labelAppointmentEnd.Size = new System.Drawing.Size(83, 19);
             this.labelAppointmentEnd.TabIndex = 18;
@@ -108,7 +109,7 @@
             // 
             this.labelAppointmentStart.AutoSize = true;
             this.labelAppointmentStart.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAppointmentStart.Location = new System.Drawing.Point(255, 198);
+            this.labelAppointmentStart.Location = new System.Drawing.Point(255, 201);
             this.labelAppointmentStart.Name = "labelAppointmentStart";
             this.labelAppointmentStart.Size = new System.Drawing.Size(89, 19);
             this.labelAppointmentStart.TabIndex = 14;
@@ -125,6 +126,7 @@
             this.cbAppointmentType.Name = "cbAppointmentType";
             this.cbAppointmentType.Size = new System.Drawing.Size(200, 21);
             this.cbAppointmentType.TabIndex = 24;
+            this.cbAppointmentType.SelectedIndexChanged += new System.EventHandler(this.cbAppointmentType_SelectedIndexChanged);
             // 
             // cbAppointmentCustomer
             // 
@@ -135,44 +137,7 @@
             this.cbAppointmentCustomer.Name = "cbAppointmentCustomer";
             this.cbAppointmentCustomer.Size = new System.Drawing.Size(200, 21);
             this.cbAppointmentCustomer.TabIndex = 25;
-            // 
-            // cbAppointmentStart
-            // 
-            this.cbAppointmentStart.FormattingEnabled = true;
-            this.cbAppointmentStart.Items.AddRange(new object[] {
-            "",
-            "8:00",
-            "9:00",
-            "10:00",
-            "11:00",
-            "12:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00"});
-            this.cbAppointmentStart.Location = new System.Drawing.Point(350, 200);
-            this.cbAppointmentStart.Name = "cbAppointmentStart";
-            this.cbAppointmentStart.Size = new System.Drawing.Size(128, 21);
-            this.cbAppointmentStart.TabIndex = 26;
-            // 
-            // cbAppointmentEnd
-            // 
-            this.cbAppointmentEnd.FormattingEnabled = true;
-            this.cbAppointmentEnd.Items.AddRange(new object[] {
-            "",
-            "9:00",
-            "10:00",
-            "11:00",
-            "12:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00"});
-            this.cbAppointmentEnd.Location = new System.Drawing.Point(350, 250);
-            this.cbAppointmentEnd.Name = "cbAppointmentEnd";
-            this.cbAppointmentEnd.Size = new System.Drawing.Size(128, 21);
-            this.cbAppointmentEnd.TabIndex = 27;
+            this.cbAppointmentCustomer.SelectedIndexChanged += new System.EventHandler(this.cbAppointmentCustomer_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -190,17 +155,43 @@
             this.tbAppointmentUserID.Location = new System.Drawing.Point(350, 300);
             this.tbAppointmentUserID.Name = "tbAppointmentUserID";
             this.tbAppointmentUserID.Size = new System.Drawing.Size(100, 20);
-            this.tbAppointmentUserID.TabIndex = 29;
+            this.tbAppointmentUserID.TabIndex = 28;
+            // 
+            // dtpAppointmentStart
+            // 
+            this.dtpAppointmentStart.CustomFormat = "MM/dd/yyyy hh:mm tt";
+            this.dtpAppointmentStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpAppointmentStart.Location = new System.Drawing.Point(350, 200);
+            this.dtpAppointmentStart.MaxDate = new System.DateTime(2023, 12, 31, 0, 0, 0, 0);
+            this.dtpAppointmentStart.MinDate = new System.DateTime(2022, 1, 1, 0, 0, 0, 0);
+            this.dtpAppointmentStart.Name = "dtpAppointmentStart";
+            this.dtpAppointmentStart.Size = new System.Drawing.Size(200, 20);
+            this.dtpAppointmentStart.TabIndex = 26;
+            this.dtpAppointmentStart.Value = new System.DateTime(2022, 11, 15, 8, 0, 0, 0);
+            this.dtpAppointmentStart.ValueChanged += new System.EventHandler(this.dtpAppointmentStart_ValueChanged);
+            // 
+            // dtpAppointmentEnd
+            // 
+            this.dtpAppointmentEnd.CustomFormat = "MM/dd/yyyy hh:mm tt";
+            this.dtpAppointmentEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpAppointmentEnd.Location = new System.Drawing.Point(350, 250);
+            this.dtpAppointmentEnd.MaxDate = new System.DateTime(2023, 12, 31, 0, 0, 0, 0);
+            this.dtpAppointmentEnd.MinDate = new System.DateTime(2022, 1, 1, 0, 0, 0, 0);
+            this.dtpAppointmentEnd.Name = "dtpAppointmentEnd";
+            this.dtpAppointmentEnd.Size = new System.Drawing.Size(200, 20);
+            this.dtpAppointmentEnd.TabIndex = 27;
+            this.dtpAppointmentEnd.Value = new System.DateTime(2022, 11, 15, 9, 0, 0, 0);
+            this.dtpAppointmentEnd.ValueChanged += new System.EventHandler(this.dtpAppointmentEnd_ValueChanged);
             // 
             // AppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dtpAppointmentEnd);
+            this.Controls.Add(this.dtpAppointmentStart);
             this.Controls.Add(this.tbAppointmentUserID);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbAppointmentEnd);
-            this.Controls.Add(this.cbAppointmentStart);
             this.Controls.Add(this.cbAppointmentCustomer);
             this.Controls.Add(this.cbAppointmentType);
             this.Controls.Add(this.buttonAppointmentCancel);
@@ -228,9 +219,9 @@
         private System.Windows.Forms.Label labelAppointmentStart;
         private System.Windows.Forms.ComboBox cbAppointmentType;
         private System.Windows.Forms.ComboBox cbAppointmentCustomer;
-        private System.Windows.Forms.ComboBox cbAppointmentStart;
-        private System.Windows.Forms.ComboBox cbAppointmentEnd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbAppointmentUserID;
+        private System.Windows.Forms.DateTimePicker dtpAppointmentStart;
+        private System.Windows.Forms.DateTimePicker dtpAppointmentEnd;
     }
 }

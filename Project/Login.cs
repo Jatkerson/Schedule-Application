@@ -17,6 +17,7 @@ namespace Project
     public partial class Login : Form
     {
         public static string userName = "";
+        public static int userId = 0;
 
         public Login()
         {
@@ -34,11 +35,11 @@ namespace Project
             try
             {
 
-                string query = "SELECT COUNT(userID) FROM user WHERE userName='" + userName + "' AND password='" + password + "'";
+                string query = "SELECT userID FROM user WHERE userName='" + userName + "' AND password='" + password + "'";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 object result = cmd.ExecuteScalar();
 
-                if(result.ToString() == "0")
+                if(result == null)
                 {
                     string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
@@ -52,8 +53,10 @@ namespace Project
                     }
 
                 }
-                else if(result.ToString() == "1")
+                else
                 {
+                    userId = Convert.ToInt32(result);
+
                     this.Visible = false;
                     MainForm newForm = new MainForm();
                     newForm.Show();

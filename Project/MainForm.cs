@@ -16,6 +16,7 @@ namespace Project
     {
         public static MainForm form;
         public static int selectedCustomerId = -1;
+        public static int selectedAppointmentId = -1;
 
         public MainForm()
         {
@@ -97,11 +98,12 @@ namespace Project
             buttonCustomerUpdate.Enabled = false;
         }
 
-        private void displayAppointments()
+        public void displayAppointments()
         {
 
             dgvAppointments.DataSource = null;
             dgvAppointments.Refresh();
+            selectedAppointmentId = -1;
 
             // Ensure no appointments in list
             while (Appointment.allAppointments.Count > 0)
@@ -310,13 +312,42 @@ namespace Project
                 MessageBox.Show("Customer deleted");
 
             }
-            else if(dialogResult == DialogResult.No)
+        }
+
+        private void dgvAppointments_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedAppointmentId = Convert.ToInt32(dgvAppointments.CurrentRow.Cells[0].Value);
+
+            if (selectedAppointmentId > 0)
+            {
+                buttonAppointmentDelete.Enabled = true;
+                buttonAppointmentUpdate.Enabled = true;
+            }
+            else
+            {
+                buttonAppointmentDelete.Enabled = false;
+                buttonAppointmentUpdate.Enabled = false;
+            }
+        }
+
+        private void buttonAppointmentDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this appointment?", "Delete Appointment", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
             {
 
+                MySqlConnection c = DBConnection.conn;
+
+                // Delete appointment record
+                string query = "DELETE FROM appointment WHERE appointmentId = " + selectedAppointmentId;
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                cmd.ExecuteNonQuery();
+
+                displayAppointments();
+                MessageBox.Show("Appointment deleted");
+
             }
-
-
-
         }
     }
 }

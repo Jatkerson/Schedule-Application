@@ -162,6 +162,7 @@
             this.buttonAppointmentDelete.TabIndex = 7;
             this.buttonAppointmentDelete.Text = "Delete";
             this.buttonAppointmentDelete.UseVisualStyleBackColor = true;
+            this.buttonAppointmentDelete.Click += new System.EventHandler(this.buttonAppointmentDelete_Click);
             // 
             // buttonAppointmentUpdate
             // 
@@ -194,6 +195,7 @@
             this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAppointments.Size = new System.Drawing.Size(700, 350);
             this.dgvAppointments.TabIndex = 4;
+            this.dgvAppointments.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAppointments_CellClick);
             this.dgvAppointments.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvAppointments_DataBindingComplete);
             // 
             // panelCustomers
@@ -484,10 +486,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.panelCustomers);
             this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
             this.Controls.Add(this.panelReports);
+            this.Controls.Add(this.panelCustomers);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);
