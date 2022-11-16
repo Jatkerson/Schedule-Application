@@ -58,7 +58,7 @@ namespace Project
                     userId = Convert.ToInt32(result);
 
                     this.Visible = false;
-                    MainForm newForm = new MainForm();
+                    MainForm newForm = new MainForm("customers");
                     newForm.Show();
                 }
 

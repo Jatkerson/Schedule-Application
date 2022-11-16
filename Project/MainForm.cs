@@ -23,12 +23,34 @@ namespace Project
             if (form == null)
             {
                 form = this;
+
             }
 
             InitializeComponent();
-            displayCustomers();
+            //displayCustomers();
 
         }
+
+        public MainForm(string display)
+        {
+            if (form == null)
+            {
+                form = this;
+
+            }
+
+            InitializeComponent();
+
+            if (display == "customers")
+            {
+                displayCustomers();
+            }
+            else if(display == "appointments")
+            {
+                displayAppointments();
+            }
+        }
+
 
         public void displayCustomers()
         {
@@ -256,6 +278,13 @@ namespace Project
             this.Visible = false;
         }
 
+        private void buttonAppointmentUpdate_Click(object sender, EventArgs e)
+        {
+            AppointmentForm newForm = new AppointmentForm("update");
+            newForm.Show();
+            this.Visible = false;
+        }
+
         private void dgvCustomers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvCustomers.ClearSelection();
@@ -303,9 +332,14 @@ namespace Project
                 cmd.ExecuteNonQuery();
                 */
 
-                // Delete only the customer record
-                string query = "DELETE FROM customer WHERE customerId = " + selectedCustomerId;
+                // Delete all appointments for customer
+                string query = "DELETE FROM appointment WHERE customerId = " + selectedCustomerId;
                 MySqlCommand cmd = new MySqlCommand(query, c);
+                cmd.ExecuteNonQuery();
+
+                // Delete only the customer record
+                query = "DELETE FROM customer WHERE customerId = " + selectedCustomerId;
+                cmd = new MySqlCommand(query, c);
                 cmd.ExecuteNonQuery();
 
                 displayCustomers();
@@ -349,5 +383,6 @@ namespace Project
 
             }
         }
+
     }
 }

@@ -80,7 +80,7 @@ namespace Project
 
         private void buttonCustomerCancel_Click(object sender, EventArgs e)
         {
-            MainForm newForm = new MainForm();
+            MainForm newForm = new MainForm("customers");
             newForm.Show();
             this.Visible = false;
         }
@@ -302,12 +302,11 @@ namespace Project
                     cmd.ExecuteNonQuery();
 
 
-                    MainForm.form.displayCustomers();
                     MessageBox.Show("New customer added");
 
 
                     this.Visible = false;
-                    MainForm newForm = new MainForm();
+                    MainForm newForm = new MainForm("customers");
                     newForm.Show();
 
                 }
@@ -374,12 +373,10 @@ namespace Project
 
                     if (customerChange || addressChange || cityChange || countryChange)
                     {
-                        MainForm.form.displayCustomers(); 
                         MessageBox.Show("Customer record updated");
 
-
                         this.Visible = false;
-                        MainForm newForm = new MainForm();
+                        MainForm newForm = new MainForm("customers");
                         newForm.Show();
                     }
                     else

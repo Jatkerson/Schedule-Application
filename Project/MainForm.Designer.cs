@@ -173,6 +173,7 @@
             this.buttonAppointmentUpdate.TabIndex = 6;
             this.buttonAppointmentUpdate.Text = "Update";
             this.buttonAppointmentUpdate.UseVisualStyleBackColor = true;
+            this.buttonAppointmentUpdate.Click += new System.EventHandler(this.buttonAppointmentUpdate_Click);
             // 
             // buttonAppointmentAdd
             // 

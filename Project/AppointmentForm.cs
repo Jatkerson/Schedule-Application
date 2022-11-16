@@ -61,18 +61,65 @@ namespace Project
             }
             else if (type == "update")
             {
-                cbAppointmentType.SelectedIndex = 0;
-                cbAppointmentCustomer.SelectedIndex = 0;
-                tbAppointmentUserID.Text = "0";
-                buttonAppointmentChange.Text = "Change";
-                buttonAppointmentChange.Enabled = false;
+                appointmentIndex = -1;
+
+                for (int i = 0; i < Appointment.allAppointments.Count(); i++)
+                {
+                    if (Appointment.allAppointments[i].id == selectedAppointmentId)
+                    {
+                        appointmentIndex = i;
+                        break;
+                    }
+                }
+
+
+                if (appointmentIndex > -1)
+                {
+
+                    if(Appointment.allAppointments[appointmentIndex].type == "Presentation")
+                    {
+                        cbAppointmentType.SelectedIndex = 1;
+                    }
+                    else if(Appointment.allAppointments[appointmentIndex].type == "Scrum")
+                    {
+                        cbAppointmentType.SelectedIndex = 2;
+                    }
+                    else
+                    {
+                        cbAppointmentType.SelectedIndex = 0;
+                    }
+
+
+                    cbAppointmentCustomer.Items.Clear();
+                    cbAppointmentCustomer.Items.Add("");
+
+                    for (int i = 0; i < Customer.allCustomers.Count(); i++)
+                    {
+                        cbAppointmentCustomer.Items.Add(Customer.allCustomers[i].name);
+
+                        if(Appointment.allAppointments[appointmentIndex].customerName == Customer.allCustomers[i].name)
+                        {
+                            cbAppointmentCustomer.SelectedIndex = i+1;
+                        }
+                    }
+
+
+                    dtpAppointmentStart.Value = DateTime.Parse(Appointment.allAppointments[appointmentIndex].start);
+                    dtpAppointmentEnd.Value = DateTime.Parse(Appointment.allAppointments[appointmentIndex].end);
+
+                    tbAppointmentUserID.Text = Appointment.allAppointments[appointmentIndex].userId.ToString();
+                }
+
+
+                buttonAppointmentChange.Text = "Update";
+                buttonAppointmentChange.Enabled = true;
             }
 
         }
 
         private void buttonAppointmentCancel_Click(object sender, EventArgs e)
         {
-            MainForm newForm = new MainForm();
+            MainForm newForm = new MainForm("appointments");
             newForm.Show();
             this.Visible = false;
         }
@@ -152,13 +199,6 @@ namespace Project
             string appointmentType = cbAppointmentType.SelectedItem.ToString();
             int appointmentCustomerIndex = cbAppointmentCustomer.SelectedIndex;
             int customerId = Customer.allCustomers[appointmentCustomerIndex-1].id;
-            string appointmentStart = dtpAppointmentStart.Value.ToString();
-            string appointmentEnd = dtpAppointmentEnd.Value.ToString();
-
-
-
-            MessageBox.Show("customerIndex: " + appointmentCustomerIndex + ", customerId: " + customerId.ToString());
-
             DateTime appointmentStartTime = dtpAppointmentStart.Value;
             DateTime appointmentEndTime = dtpAppointmentEnd.Value;
 
@@ -183,8 +223,6 @@ namespace Project
             MySqlConnection c = DBConnection.conn;
             string query = "";
             MySqlCommand cmd = null;
-            MySqlDataReader rdr = null;
-            object result = null;
 
 
             if (changeType == "add")
@@ -198,12 +236,11 @@ namespace Project
                     cmd.ExecuteNonQuery();
 
 
-                    MainForm.form.displayAppointments();
                     MessageBox.Show("New appointment added");
 
 
                     this.Visible = false;
-                    MainForm newForm = new MainForm();
+                    MainForm newForm = new MainForm("appointments");
                     newForm.Show();
 
                 }
@@ -214,6 +251,19 @@ namespace Project
             }
             else if (changeType == "update")
             {
+
+
+                query = "UPDATE appointment SET customerId='" + customerId + "', type='" + appointmentType + "', start='" + appointmentStartTime.ToString("yyyy-MM-dd HH:mm") + "', end='" + appointmentEndTime.ToString("yyyy-MM-dd HH:mm") + "', lastUpdate=NOW(), lastUpdateBy='" + Login.userName + "' WHERE appointmentId='" + selectedAppointmentId + "'";
+                cmd = new MySqlCommand(query, c);
+                cmd.ExecuteNonQuery();
+
+
+                MessageBox.Show("Appointment updated");
+
+
+                this.Visible = false;
+                MainForm newForm = new MainForm("appointments");
+                newForm.Show();
 
             }
 
