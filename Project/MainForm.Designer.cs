@@ -276,6 +276,7 @@
             this.buttonCalendarMonth.TabIndex = 11;
             this.buttonCalendarMonth.Text = "Month";
             this.buttonCalendarMonth.UseVisualStyleBackColor = true;
+            this.buttonCalendarMonth.Click += new System.EventHandler(this.buttonCalendarMonth_Click);
             // 
             // buttonCalendarWeek
             // 
@@ -286,6 +287,7 @@
             this.buttonCalendarWeek.TabIndex = 10;
             this.buttonCalendarWeek.Text = "Week";
             this.buttonCalendarWeek.UseVisualStyleBackColor = true;
+            this.buttonCalendarWeek.Click += new System.EventHandler(this.buttonCalendarWeek_Click);
             // 
             // buttonCalendarAll
             // 
@@ -296,6 +298,7 @@
             this.buttonCalendarAll.TabIndex = 9;
             this.buttonCalendarAll.Text = "All";
             this.buttonCalendarAll.UseVisualStyleBackColor = true;
+            this.buttonCalendarAll.Click += new System.EventHandler(this.buttonCalendarAll_Click);
             // 
             // dgvCalendar
             // 
@@ -487,10 +490,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.panelAppointments);
             this.Controls.Add(this.panelCalendar);
             this.Controls.Add(this.panelReports);
             this.Controls.Add(this.panelCustomers);
+            this.Controls.Add(this.panelAppointments);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);

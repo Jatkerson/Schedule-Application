@@ -198,12 +198,12 @@ namespace Project
         {
             string appointmentType = cbAppointmentType.SelectedItem.ToString();
             int appointmentCustomerIndex = cbAppointmentCustomer.SelectedIndex;
-            int customerId = Customer.allCustomers[appointmentCustomerIndex-1].id;
+            int customerId = Customer.allCustomers[appointmentCustomerIndex - 1].id;
             DateTime appointmentStartTime = dtpAppointmentStart.Value;
             DateTime appointmentEndTime = dtpAppointmentEnd.Value;
 
 
-            if(appointmentStartTime.Date != appointmentEndTime.Date)
+            if (appointmentStartTime.Date != appointmentEndTime.Date)
             {
                 MessageBox.Show("Appointment start and end date must be the same");
                 return;
@@ -213,9 +213,14 @@ namespace Project
                 MessageBox.Show("Appointment end time must be after start time");
                 return;
             }
-            else if(appointmentStartTime.Hour < 8 || appointmentStartTime.Hour > 16 || appointmentEndTime.Hour < 8 || appointmentEndTime.Hour > 17 || (appointmentEndTime.Hour == 17 && appointmentEndTime.Minute != 0))
+            else if (appointmentStartTime.Hour < 8 || appointmentStartTime.Hour > 16 || appointmentEndTime.Hour < 8 || appointmentEndTime.Hour > 17 || (appointmentEndTime.Hour == 17 && appointmentEndTime.Minute != 0))
             {
                 MessageBox.Show("Appointment times must be during business hours (8AM - 5PM)");
+                return;
+            }
+            else if (appointmentStartTime.DayOfWeek.ToString() == "Saturday" || appointmentStartTime.DayOfWeek.ToString() == "Sunday" || appointmentEndTime.DayOfWeek.ToString() == "Saturday" || appointmentEndTime.DayOfWeek.ToString() == "Sunday")
+            {
+                MessageBox.Show("Appointment times must be on business days (Monday - Friday)");
                 return;
             }
 

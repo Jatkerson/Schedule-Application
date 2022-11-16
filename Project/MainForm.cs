@@ -186,10 +186,79 @@ namespace Project
             buttonAppointmentDelete.Enabled = false;
         }
 
-        private void displayCalendar()
+        private void displayCalendar(string view)
         {
 
             labelDisplayHeading.Text = "Calendar";
+
+            string calendarFilter = "";
+
+            if (view == "all")
+            {
+                calendarFilter = "";
+
+                buttonCalendarAll.BackColor = SystemColors.ActiveCaption;
+                buttonCalendarWeek.BackColor = SystemColors.Control;
+                buttonCalendarMonth.BackColor = SystemColors.Control;
+            }
+            else if(view == "week")
+            {
+                calendarFilter = " WHERE start >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+
+                buttonCalendarAll.BackColor = SystemColors.Control;
+                buttonCalendarWeek.BackColor = SystemColors.ActiveCaption;
+                buttonCalendarMonth.BackColor = SystemColors.Control;
+            }
+            else if(view == "month")
+            {
+                calendarFilter = " WHERE YEAR(start) = YEAR(CURRENT_DATE()) AND MONTH(start) = MONTH(CURRENT_DATE())";
+                
+                buttonCalendarAll.BackColor = SystemColors.Control;
+                buttonCalendarWeek.BackColor = SystemColors.Control;
+                buttonCalendarMonth.BackColor = SystemColors.ActiveCaption;
+            }
+
+
+            dgvCalendar.DataSource = null;
+            dgvCalendar.Refresh();
+
+            // Ensure no appointments in list
+            while (Appointment.allAppointments.Count > 0)
+            {
+                Appointment.allAppointments.RemoveAt(0);
+            }
+
+            MySqlConnection c = DBConnection.conn;
+
+            try
+            {
+                // Get all appointments
+                string query = "SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter;
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //MessageBox.Show("SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter);
+
+                while (rdr.Read())
+                {
+                    Appointment newAppointment = new Appointment(Convert.ToInt32(rdr[0]), Convert.ToInt32(rdr[1]), rdr[2].ToString(), rdr[3].ToString(), rdr[4].ToString(), rdr[5].ToString());
+
+                    Appointment.allAppointments.Add(newAppointment);
+
+                    //MessageBox.Show(Convert.ToInt32(rdr[0]) + " " + Convert.ToInt32(rdr[1]) + " " + rdr[2].ToString() + " " + rdr[3].ToString() + " " + rdr[4].ToString() + " " + rdr[5].ToString());
+                }
+
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
+
+
+            dgvCalendar.DataSource = Appointment.allAppointments;
+
 
             panelCalendar.Visible = true;
             panelAppointments.Visible = false;
@@ -200,10 +269,6 @@ namespace Project
             buttonAppointments.BackColor = SystemColors.Control;
             buttonCustomers.BackColor = SystemColors.Control;
             buttonReports.BackColor = SystemColors.Control;
-
-            buttonCalendarAll.BackColor = SystemColors.ActiveCaption;
-            buttonCalendarWeek.BackColor = SystemColors.Control;
-            buttonCalendarMonth.BackColor = SystemColors.Control;
         }
 
         private void displayReports()
@@ -242,7 +307,7 @@ namespace Project
 
         private void buttonCalendar_Click(object sender, EventArgs e)
         {
-            displayCalendar();
+            displayCalendar("all");
         }
 
         private void buttonReports_Click(object sender, EventArgs e)
@@ -384,5 +449,19 @@ namespace Project
             }
         }
 
+        private void buttonCalendarAll_Click(object sender, EventArgs e)
+        {
+            displayCalendar("all");
+        }
+
+        private void buttonCalendarWeek_Click(object sender, EventArgs e)
+        {
+            displayCalendar("week");
+        }
+
+        private void buttonCalendarMonth_Click(object sender, EventArgs e)
+        {
+            displayCalendar("month");
+        }
     }
 }
