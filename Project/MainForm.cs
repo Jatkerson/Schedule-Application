@@ -17,6 +17,8 @@ namespace Project
         public static MainForm form;
         public static int selectedCustomerId = -1;
         public static int selectedAppointmentId = -1;
+        public static TimeSpan timezoneOffset = DateTime.Now - DateTime.UtcNow;
+        public static int timezoneOffsetHour = (DateTime.Now - DateTime.UtcNow).Hours;
 
         public MainForm()
         {
@@ -27,8 +29,6 @@ namespace Project
             }
 
             InitializeComponent();
-            //displayCustomers();
-
         }
 
         public MainForm(string display)
@@ -40,6 +40,12 @@ namespace Project
             }
 
             InitializeComponent();
+
+
+            //MessageBox.Show(localTimeZone.StandardName);
+            //MessageBox.Show(localTime.ToString() + "-" + utcTime.ToString());
+            //MessageBox.Show(timezoneOffsetHour.ToString());
+
 
             if (display == "customers")
             {
@@ -138,7 +144,7 @@ namespace Project
             try
             {
                 // Get all appointments
-                string query = "SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId";
+                string query = "SELECT appointmentId, userId, type, customerName, ADDDATE(start, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR), ADDDATE(end, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR)  FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -229,15 +235,15 @@ namespace Project
             }
 
             MySqlConnection c = DBConnection.conn;
+            DateTime start;
 
             try
             {
                 // Get all appointments
-                string query = "SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter;
+                string query = "SELECT appointmentId, userId, type, customerName, ADDDATE(start, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR), ADDDATE(end, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR) FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter;
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
-                //MessageBox.Show("SELECT appointmentId, userId, type, customerName, start, end FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter);
 
                 while (rdr.Read())
                 {
@@ -245,7 +251,12 @@ namespace Project
 
                     Appointment.allAppointments.Add(newAppointment);
 
-                    //MessageBox.Show(Convert.ToInt32(rdr[0]) + " " + Convert.ToInt32(rdr[1]) + " " + rdr[2].ToString() + " " + rdr[3].ToString() + " " + rdr[4].ToString() + " " + rdr[5].ToString());
+                    start = (DateTime)rdr[4];
+
+                    if (start <= DateTime.Now.AddMinutes(15) && start > DateTime.Now)
+                    {
+                        MessageBox.Show("You have an upcoming appointment, check the calendar");
+                    }
                 }
 
                 rdr.Close();

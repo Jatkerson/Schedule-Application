@@ -203,6 +203,7 @@ namespace Project
             DateTime appointmentEndTime = dtpAppointmentEnd.Value;
 
 
+
             if (appointmentStartTime.Date != appointmentEndTime.Date)
             {
                 MessageBox.Show("Appointment start and end date must be the same");
@@ -225,9 +226,27 @@ namespace Project
             }
 
 
+            // Apply timezone offset for insert
+            appointmentStartTime -= MainForm.timezoneOffset;
+            appointmentEndTime -= MainForm.timezoneOffset;
+
+
             MySqlConnection c = DBConnection.conn;
             string query = "";
             MySqlCommand cmd = null;
+            object result = null;
+
+
+            // Check if new appointment time has overlap with existing customer appointment
+            query = "SELECT COUNT(appointmentId) FROM appointment WHERE customerId=" + customerId + " AND ('" + appointmentStartTime.ToString("yyyy-MM-dd HH:mm:ss") + "' >= start AND '" + appointmentStartTime.ToString("yyyy-MM-dd HH:mm:ss") + "' < end) OR ('" + appointmentEndTime.ToString("yyyy-MM-dd HH:mm:ss") + "' > start AND '" + appointmentEndTime.ToString("yyyy-MM-dd HH:mm:ss") + "' <= end)";
+            cmd = new MySqlCommand(query, c);
+            result = cmd.ExecuteScalar();
+
+            if(Convert.ToInt32(result) > 0)
+            {
+                MessageBox.Show("This appointment time overlaps with another appointment for this customer");
+                return;
+            }
 
 
             if (changeType == "add")
@@ -276,6 +295,10 @@ namespace Project
 
         }
 
-     
+
+
+
+
     }
+
 }

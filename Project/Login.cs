@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using Project.Database;
+using System.IO;
 
 namespace Project
 {
@@ -52,10 +53,42 @@ namespace Project
                         MessageBox.Show("Combinación incorrecta de nombre de usuario y contraseña");
                     }
 
+
+                    using (StreamWriter sw = File.AppendText("log.txt"))
+                    {
+                        sw.WriteLine("Failed login attempt with user " + userName + " at " + DateTime.Now.ToString());
+                    }
+
+
                 }
                 else
                 {
+
+                    using (StreamWriter sw = File.AppendText("log.txt"))
+                    {
+                        sw.WriteLine("User " + userName + " logged in at " + DateTime.Now.ToString());
+                    }
+
                     userId = Convert.ToInt32(result);
+
+                    query = "SELECT ADDDATE(start, INTERVAL " + MainForm.timezoneOffsetHour.ToString() + " HOUR) FROM appointment WHERE userId='" + userId + "'";
+                    cmd = new MySqlCommand(query, c);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+
+                    DateTime start;
+
+                    while (rdr.Read())
+                    {
+                        start = (DateTime)rdr[0];
+
+                        if (start <= DateTime.Now.AddMinutes(15) && start > DateTime.Now)
+                        {
+                            MessageBox.Show("You have an upcoming appointment, check the calendar");
+                        }
+                    }
+
+                    rdr.Close();
+
 
                     this.Visible = false;
                     MainForm newForm = new MainForm("customers");

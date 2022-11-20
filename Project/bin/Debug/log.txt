@@ -1,0 +1,2 @@
+User test logged in at 11/20/2022 2:13:54 AM
+Failed login attempt with user fake at 11/20/2022 2:14:44 AM
