@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,11 +43,7 @@ namespace Project
             InitializeComponent();
 
 
-            //MessageBox.Show(localTimeZone.StandardName);
-            //MessageBox.Show(localTime.ToString() + "-" + utcTime.ToString());
-            //MessageBox.Show(timezoneOffsetHour.ToString());
-
-
+            // Determine which display to show - reloads class data
             if (display == "customers")
             {
                 displayCustomers();
@@ -60,9 +57,9 @@ namespace Project
 
         public void displayCustomers()
         {
+            // Clear out existing data
             dgvCustomers.DataSource = null;
             dgvCustomers.Refresh();
-            //dgvCustomers.Rows.Clear();
 
             // Ensure no customers in list
             while(Customer.allCustomers.Count > 0)
@@ -71,11 +68,13 @@ namespace Project
             }
 
 
-            MySqlConnection c = DBConnection.conn;
-
+            // Attempt to get all customers from database
+            // Add each customer to the allCustomers list
             try
             {
-                // Get all customers
+
+                MySqlConnection c = DBConnection.conn;
+
                 string query = "SELECT customerId, customerName, address, city, country, postalCode, phone FROM customer INNER JOIN address ON address.addressId=customer.addressId INNER JOIN city ON city.cityId=address.cityId INNER JOIN country ON country.countryId=city.countryId";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -97,14 +96,7 @@ namespace Project
             }
 
 
-            /*
-            // Ensure no customers in list
-            for (int i = 0; i < Customer.allCustomers.Count; i++)
-            {
-                MessageBox.Show(Customer.allCustomers[i].name);
-            }
-            */
-
+            // Set data and values to initial view for customer datagridview
             dgvCustomers.DataSource = Customer.allCustomers;
             dgvCustomers.ClearSelection();
             selectedCustomerId = -1;
@@ -129,9 +121,11 @@ namespace Project
         public void displayAppointments()
         {
 
+            // Clear out existing data
             dgvAppointments.DataSource = null;
             dgvAppointments.Refresh();
             selectedAppointmentId = -1;
+
 
             // Ensure no appointments in list
             while (Appointment.allAppointments.Count > 0)
@@ -139,11 +133,14 @@ namespace Project
                 Appointment.allAppointments.RemoveAt(0);
             }
 
-            MySqlConnection c = DBConnection.conn;
 
+            // Attepmt to get all appointments from database
+            // Add each appointment to the allAppointments list
             try
             {
-                // Get all appointments
+
+                MySqlConnection c = DBConnection.conn;
+
                 string query = "SELECT appointmentId, userId, type, customerName, ADDDATE(start, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR), ADDDATE(end, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR)  FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -164,16 +161,9 @@ namespace Project
                 MessageBox.Show("error: " + ex.ToString());
             }
 
-            /*
-            // Ensure no customers in list
-            for (int i = 0; i < Customer.allCustomers.Count; i++)
-            {
-                MessageBox.Show(Customer.allCustomers[i].name);
-            }
-            */
 
+            // Set data and values to initial view for appointment datagridview
             dgvAppointments.DataSource = Appointment.allAppointments;
-
 
             labelDisplayHeading.Text = "Appointments";
 
@@ -195,10 +185,21 @@ namespace Project
         private void displayCalendar(string view)
         {
 
-            labelDisplayHeading.Text = "Calendar";
+            // Clear out existing data
+            dgvCalendar.DataSource = null;
+            dgvCalendar.Refresh();
+
+            // Ensure no appointments in list
+            while (Appointment.allAppointments.Count > 0)
+            {
+                Appointment.allAppointments.RemoveAt(0);
+            }
+
 
             string calendarFilter = "";
 
+            // Determine which calendar view to display
+            // Set additional WHERE statement if user has selected week or month view
             if (view == "all")
             {
                 calendarFilter = "";
@@ -225,20 +226,14 @@ namespace Project
             }
 
 
-            dgvCalendar.DataSource = null;
-            dgvCalendar.Refresh();
-
-            // Ensure no appointments in list
-            while (Appointment.allAppointments.Count > 0)
-            {
-                Appointment.allAppointments.RemoveAt(0);
-            }
-
-            MySqlConnection c = DBConnection.conn;
-            DateTime start;
-
+            // Attempt to get all appointments in the selected timeframe
+            // Add each appointment to the allAppointments list
             try
             {
+
+                MySqlConnection c = DBConnection.conn;
+                DateTime start;
+
                 // Get all appointments
                 string query = "SELECT appointmentId, userId, type, customerName, ADDDATE(start, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR), ADDDATE(end, INTERVAL " + timezoneOffsetHour.ToString() + " HOUR) FROM appointment INNER JOIN customer ON customer.customerId=appointment.customerId" + calendarFilter;
                 MySqlCommand cmd = new MySqlCommand(query, c);
@@ -268,8 +263,10 @@ namespace Project
             }
 
 
+            // Set data and values to view for calendar datagridview
             dgvCalendar.DataSource = Appointment.allAppointments;
 
+            labelDisplayHeading.Text = "Calendar";
 
             panelCalendar.Visible = true;
             panelAppointments.Visible = false;
@@ -285,6 +282,7 @@ namespace Project
         private void displayReports()
         {
 
+            // Set view for initial report display
             labelDisplayHeading.Text = "Reports";
 
             panelReports.Visible = true;
@@ -303,7 +301,40 @@ namespace Project
 
             buttonReportTypeByMonth.Enabled = false;
             buttonReportConsultantSchedule.Enabled = false;
-            buttonReport3.Enabled = true;
+            buttonReport3.Enabled = false;
+
+
+            // Clear all consultants from the combobox and add blank first value
+            cbReportConsultant.Items.Clear();
+            cbReportConsultant.Items.Add("");
+
+
+            // Attempt to get all users from database
+            // Add each user to the consultant combobox
+            try
+            {
+
+                MySqlConnection c = DBConnection.conn;
+
+                string query = "SELECT userName FROM user";
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    cbReportConsultant.Items.Add(rdr[0]);
+                }
+
+                rdr.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
+
+
         }
 
         private void buttonCustomers_Click(object sender, EventArgs e)
@@ -400,26 +431,32 @@ namespace Project
             if(dialogResult == DialogResult.Yes)
             {
 
-                MySqlConnection c = DBConnection.conn;
+                // Attempt to delete customer
+                // Customer appointments must first be deleted as Primary/Foreign key relation exists
+                // Reload customer display
+                try
+                {
 
-                /* Delete country, city and address attached to customer
-                string query = "DELETE country, city, address, customer FROM country JOIN city ON city.countryId = country.countryId JOIN address on address.cityId = city.cityId JOIN customer ON customer.addressId = address.addressId WHERE customerId = " + selectedCustomerId;
-                MySqlCommand cmd = new MySqlCommand(query, c);
-                cmd.ExecuteNonQuery();
-                */
+                    MySqlConnection c = DBConnection.conn;
 
-                // Delete all appointments for customer
-                string query = "DELETE FROM appointment WHERE customerId = " + selectedCustomerId;
-                MySqlCommand cmd = new MySqlCommand(query, c);
-                cmd.ExecuteNonQuery();
+                    // Delete all appointments for customer
+                    string query = "DELETE FROM appointment WHERE customerId = " + selectedCustomerId;
+                    MySqlCommand cmd = new MySqlCommand(query, c);
+                    cmd.ExecuteNonQuery();
 
-                // Delete only the customer record
-                query = "DELETE FROM customer WHERE customerId = " + selectedCustomerId;
-                cmd = new MySqlCommand(query, c);
-                cmd.ExecuteNonQuery();
+                    // Delete only the customer record
+                    query = "DELETE FROM customer WHERE customerId = " + selectedCustomerId;
+                    cmd = new MySqlCommand(query, c);
+                    cmd.ExecuteNonQuery();
 
-                displayCustomers();
-                MessageBox.Show("Customer deleted");
+                    displayCustomers();
+                    MessageBox.Show("Customer deleted");
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("error: " + ex.ToString());
+                }
 
             }
         }
@@ -447,15 +484,26 @@ namespace Project
             if (dialogResult == DialogResult.Yes)
             {
 
-                MySqlConnection c = DBConnection.conn;
+                // Attempt to delete appointment
+                // Reload appointment display
+                try
+                {
 
-                // Delete appointment record
-                string query = "DELETE FROM appointment WHERE appointmentId = " + selectedAppointmentId;
-                MySqlCommand cmd = new MySqlCommand(query, c);
-                cmd.ExecuteNonQuery();
+                    MySqlConnection c = DBConnection.conn;
 
-                displayAppointments();
-                MessageBox.Show("Appointment deleted");
+                    // Delete appointment record
+                    string query = "DELETE FROM appointment WHERE appointmentId = " + selectedAppointmentId;
+                    MySqlCommand cmd = new MySqlCommand(query, c);
+                    cmd.ExecuteNonQuery();
+
+                    displayAppointments();
+                    MessageBox.Show("Appointment deleted");
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("error: " + ex.ToString());
+                }
 
             }
         }
@@ -473,6 +521,143 @@ namespace Project
         private void buttonCalendarMonth_Click(object sender, EventArgs e)
         {
             displayCalendar("month");
+        }
+
+        private void cbReportConsultant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbReportConsultant.SelectedIndex > 0)
+            {
+                buttonReportConsultantSchedule.Enabled = true;
+            }
+            else
+            {
+                buttonReportConsultantSchedule.Enabled = false;
+            }
+        }
+
+        private void buttonReportConsultantSchedule_Click(object sender, EventArgs e)
+        {
+            string userName = cbReportConsultant.SelectedItem.ToString();
+
+
+            // Attempt to get appointment count for consultant - based on consultant userName
+            // Reload appointment display
+            try
+            {
+
+                MySqlConnection c = DBConnection.conn;
+
+                // Check if new appointment time has overlap with existing customer appointment
+                string query = "SELECT COUNT(appointmentId) FROM appointment INNER JOIN user ON user.userId=appointment.userId WHERE userName='" + userName + "'";
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                object result = cmd.ExecuteScalar();
+
+                MessageBox.Show("Consultant has " + result.ToString() + " appointment(s)");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
+
+
+
+
+        }
+
+        private void buttonReportTypeByMonth_Click(object sender, EventArgs e)
+        {
+            
+            string appointmentType = cbReportType.SelectedItem.ToString();
+            string monthName = cbReportMonth.SelectedItem.ToString();
+            int monthNumber = DateTimeFormatInfo.CurrentInfo.MonthNames.ToList().IndexOf(monthName) + 1;
+
+            //MessageBox.Show(monthNumber.ToString());
+
+            MySqlConnection c = DBConnection.conn;
+            string query = "";
+            MySqlCommand cmd = null;
+            object result = null;
+
+
+            // Check if new appointment time has overlap with existing customer appointment
+            query = "SELECT COUNT(appointmentId) FROM appointment WHERE type='" + appointmentType + "' AND MONTH(start)=" + monthNumber;
+            cmd = new MySqlCommand(query, c);
+            result = cmd.ExecuteScalar();
+
+            MessageBox.Show(result.ToString() + " " + appointmentType + " appointment(s) in " + monthName);
+
+        }
+
+        private void cbReportType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbReportType.SelectedIndex > 0 && cbReportMonth.SelectedIndex > 0)
+            {
+                buttonReportTypeByMonth.Enabled = true;
+            }
+            else
+            {
+                buttonReportTypeByMonth.Enabled = false;
+            }
+
+        }
+
+        private void cbReportMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbReportType.SelectedIndex > 0 && cbReportMonth.SelectedIndex > 0)
+            {
+                buttonReportTypeByMonth.Enabled = true;
+            }
+            else
+            {
+                buttonReportTypeByMonth.Enabled = false;
+            }
+        }
+
+        private void buttonReport3_Click(object sender, EventArgs e)
+        {
+            string sortType = cbReportSortCustomers.SelectedItem.ToString();
+            string customerDisplayString = "";
+
+
+            if (sortType == "Customer Name")
+            {
+                // Create a new variable to hold a re-ordered list of customers based on customer name using a lambda expression
+                // This lambda expression minimizes the code necessary to create a re-ordered list
+                var customerSort = Customer.allCustomers.OrderBy(x => x.name);
+
+                foreach (var sortedCustomer in customerSort)
+                {
+                    customerDisplayString += "\n" + sortedCustomer.name + " " + sortedCustomer.country;
+                }
+            }
+            else if(sortType == "Country")
+            {
+                // Create a new variable to hold a re-ordered list of customers based on customer country using a lambda expression
+                // This lambda expression minimizes the code necessary to create a re-ordered list
+                var customerSort = Customer.allCustomers.OrderBy(x => x.country);
+
+                foreach(var sortedCustomer in customerSort)
+                {
+                    customerDisplayString += "\n" + sortedCustomer.name + "          " + sortedCustomer.country;
+                }
+            }
+
+            // Show customer list with sort applied
+            MessageBox.Show(customerDisplayString);
+
+        }
+
+        private void cbReportSortCustomers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbReportSortCustomers.SelectedIndex > 0)
+            {
+                buttonReport3.Enabled = true;
+            }
+            else
+            {
+                buttonReport3.Enabled = false;
+            }
         }
     }
 }

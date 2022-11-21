@@ -64,6 +64,8 @@
             this.buttonReport3 = new System.Windows.Forms.Button();
             this.buttonReportConsultantSchedule = new System.Windows.Forms.Button();
             this.buttonReportTypeByMonth = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbReportSortCustomers = new System.Windows.Forms.ComboBox();
             this.panelNavigation.SuspendLayout();
             this.panelAppointments.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
@@ -332,6 +334,8 @@
             // 
             // panelReports
             // 
+            this.panelReports.Controls.Add(this.label2);
+            this.panelReports.Controls.Add(this.cbReportSortCustomers);
             this.panelReports.Controls.Add(this.label6);
             this.panelReports.Controls.Add(this.labelReport3);
             this.panelReports.Controls.Add(this.cbReportConsultant);
@@ -356,14 +360,14 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(500, 50);
             this.label6.TabIndex = 14;
-            this.label6.Text = "Third Report";
+            this.label6.Text = "View Sorted Customers";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelReport3
             // 
             this.labelReport3.AutoSize = true;
             this.labelReport3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReport3.Location = new System.Drawing.Point(272, 255);
+            this.labelReport3.Location = new System.Drawing.Point(272, 251);
             this.labelReport3.Name = "labelReport3";
             this.labelReport3.Size = new System.Drawing.Size(90, 19);
             this.labelReport3.TabIndex = 13;
@@ -378,6 +382,7 @@
             this.cbReportConsultant.Name = "cbReportConsultant";
             this.cbReportConsultant.Size = new System.Drawing.Size(202, 21);
             this.cbReportConsultant.TabIndex = 11;
+            this.cbReportConsultant.SelectedIndexChanged += new System.EventHandler(this.cbReportConsultant_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -393,7 +398,7 @@
             // 
             this.labelReport1.AutoSize = true;
             this.labelReport1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReport1.Location = new System.Drawing.Point(178, 84);
+            this.labelReport1.Location = new System.Drawing.Point(178, 81);
             this.labelReport1.Name = "labelReport1";
             this.labelReport1.Size = new System.Drawing.Size(50, 19);
             this.labelReport1.TabIndex = 8;
@@ -403,7 +408,7 @@
             // 
             this.labelReport2.AutoSize = true;
             this.labelReport2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReport2.Location = new System.Drawing.Point(407, 85);
+            this.labelReport2.Location = new System.Drawing.Point(407, 81);
             this.labelReport2.Name = "labelReport2";
             this.labelReport2.Size = new System.Drawing.Size(59, 19);
             this.labelReport2.TabIndex = 7;
@@ -420,6 +425,7 @@
             this.cbReportType.Name = "cbReportType";
             this.cbReportType.Size = new System.Drawing.Size(121, 21);
             this.cbReportType.TabIndex = 6;
+            this.cbReportType.SelectedIndexChanged += new System.EventHandler(this.cbReportType_SelectedIndexChanged);
             // 
             // cbReportMonth
             // 
@@ -442,6 +448,7 @@
             this.cbReportMonth.Name = "cbReportMonth";
             this.cbReportMonth.Size = new System.Drawing.Size(121, 21);
             this.cbReportMonth.TabIndex = 5;
+            this.cbReportMonth.SelectedIndexChanged += new System.EventHandler(this.cbReportMonth_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -455,13 +462,15 @@
             // 
             // buttonReport3
             // 
+            this.buttonReport3.Enabled = false;
             this.buttonReport3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReport3.Location = new System.Drawing.Point(316, 411);
+            this.buttonReport3.Location = new System.Drawing.Point(316, 444);
             this.buttonReport3.Name = "buttonReport3";
             this.buttonReport3.Size = new System.Drawing.Size(150, 30);
             this.buttonReport3.TabIndex = 3;
             this.buttonReport3.Text = "View";
             this.buttonReport3.UseVisualStyleBackColor = true;
+            this.buttonReport3.Click += new System.EventHandler(this.buttonReport3_Click);
             // 
             // buttonReportConsultantSchedule
             // 
@@ -472,6 +481,7 @@
             this.buttonReportConsultantSchedule.TabIndex = 2;
             this.buttonReportConsultantSchedule.Text = "View";
             this.buttonReportConsultantSchedule.UseVisualStyleBackColor = true;
+            this.buttonReportConsultantSchedule.Click += new System.EventHandler(this.buttonReportConsultantSchedule_Click);
             // 
             // buttonReportTypeByMonth
             // 
@@ -482,6 +492,30 @@
             this.buttonReportTypeByMonth.TabIndex = 1;
             this.buttonReportTypeByMonth.Text = "View";
             this.buttonReportTypeByMonth.UseVisualStyleBackColor = true;
+            this.buttonReportTypeByMonth.Click += new System.EventHandler(this.buttonReportTypeByMonth_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(296, 406);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 19);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Sort By:";
+            // 
+            // cbReportSortCustomers
+            // 
+            this.cbReportSortCustomers.FormattingEnabled = true;
+            this.cbReportSortCustomers.Items.AddRange(new object[] {
+            "",
+            "Customer Name",
+            "Country"});
+            this.cbReportSortCustomers.Location = new System.Drawing.Point(368, 408);
+            this.cbReportSortCustomers.Name = "cbReportSortCustomers";
+            this.cbReportSortCustomers.Size = new System.Drawing.Size(202, 21);
+            this.cbReportSortCustomers.TabIndex = 15;
+            this.cbReportSortCustomers.SelectedIndexChanged += new System.EventHandler(this.cbReportSortCustomers_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -490,10 +524,10 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panelDisplayHeading);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.panelCalendar);
             this.Controls.Add(this.panelReports);
             this.Controls.Add(this.panelCustomers);
             this.Controls.Add(this.panelAppointments);
+            this.Controls.Add(this.panelCalendar);
             this.Name = "MainForm";
             this.Text = "Schedule Application";
             this.panelNavigation.ResumeLayout(false);
@@ -548,5 +582,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelReport1;
         private System.Windows.Forms.Label labelReport2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbReportSortCustomers;
     }
 }

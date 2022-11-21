@@ -38,13 +38,13 @@
             // 
             // loginLabelUsername
             // 
-            this.loginLabelUsername.AutoSize = true;
             this.loginLabelUsername.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginLabelUsername.Location = new System.Drawing.Point(85, 89);
+            this.loginLabelUsername.Location = new System.Drawing.Point(12, 89);
             this.loginLabelUsername.Name = "loginLabelUsername";
-            this.loginLabelUsername.Size = new System.Drawing.Size(86, 19);
+            this.loginLabelUsername.Size = new System.Drawing.Size(159, 19);
             this.loginLabelUsername.TabIndex = 0;
             this.loginLabelUsername.Text = "Username:";
+            this.loginLabelUsername.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // tbLoginUsername
             // 
@@ -64,13 +64,13 @@
             // 
             // loginLabelPassword
             // 
-            this.loginLabelPassword.AutoSize = true;
             this.loginLabelPassword.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginLabelPassword.Location = new System.Drawing.Point(85, 133);
+            this.loginLabelPassword.Location = new System.Drawing.Point(12, 133);
             this.loginLabelPassword.Name = "loginLabelPassword";
-            this.loginLabelPassword.Size = new System.Drawing.Size(82, 19);
+            this.loginLabelPassword.Size = new System.Drawing.Size(155, 19);
             this.loginLabelPassword.TabIndex = 2;
             this.loginLabelPassword.Text = "Password:";
+            this.loginLabelPassword.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // loginLabelLogin
             // 
@@ -116,9 +116,9 @@
         private System.Windows.Forms.Label loginLabelUsername;
         private System.Windows.Forms.TextBox tbLoginUsername;
         private System.Windows.Forms.TextBox tbLoginPassword;
-        private System.Windows.Forms.Label loginLabelPassword;
         private System.Windows.Forms.Label loginLabelLogin;
         private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Label loginLabelPassword;
     }
 }
 

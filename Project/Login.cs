@@ -23,6 +23,23 @@ namespace Project
         public Login()
         {
             InitializeComponent();
+
+            string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+            if (languageCode == "en")
+            {
+                loginLabelLogin.Text = "Login";
+                loginLabelUsername.Text = "Username:";
+                loginLabelPassword.Text = "Password:";
+                buttonLogin.Text = "Login";
+            }
+            else if (languageCode == "es")
+            {
+                loginLabelLogin.Text = "Acceso";
+                loginLabelUsername.Text = "Nombre de usuario:";
+                loginLabelPassword.Text = "Clave:";
+                buttonLogin.Text = "Acceso";
+            }
         }
 
 

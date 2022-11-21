@@ -63,10 +63,6 @@ namespace Project
                 }
 
 
-
-
-
-
                 if(customerIndex > -1)
                 {
                     tbCustomerName.Text = Customer.allCustomers[customerIndex].name;
