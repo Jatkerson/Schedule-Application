@@ -174,6 +174,9 @@ namespace Project
         {
             bool valid = true;
 
+            // Check that each input has a valid value
+            // If true then enable button
+
             if (tbCustomerName.TextLength <= 0)
             {
                 valid = false;
@@ -239,7 +242,6 @@ namespace Project
             string query = "";
             MySqlCommand cmd = null;
             MySqlDataReader rdr = null;
-            object result = null;
 
             try
             {
@@ -270,6 +272,7 @@ namespace Project
                 try
                 {
 
+                    // If country id is 0 - insert new country and get id
                     if(countryId == 0)
                     {
                         query = "INSERT INTO country (country, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerCountry + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -279,6 +282,7 @@ namespace Project
                     }
 
 
+                    // If city id is 0 - insert new city and get id
                     if (cityId == 0)
                     {
                         query = "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerCity + "', '" +countryId + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -288,6 +292,7 @@ namespace Project
                     }
 
 
+                    // If address id is 0 - insert new address and get id
                     if (addressId == 0)
                     {
                         query = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerAddress + "', '', '" + cityId + "', '" + customerZipCode + "', '" + customerPhoneNumber + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -297,6 +302,7 @@ namespace Project
                     }
 
 
+                    // Insert new customer
                     query = "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerName + "', '" + addressId + "', '1', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
                     cmd = new MySqlCommand(query, c);
                     cmd.ExecuteNonQuery();
@@ -326,7 +332,7 @@ namespace Project
                     bool customerChange = false;
 
 
-                    // Check if country is changed
+                    // Check if country is changed - insert new country
                     if (Customer.allCustomers[customerIndex].country != customerCountry)
                     {
                         query = "INSERT INTO country (country, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerCountry + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -338,7 +344,7 @@ namespace Project
                     }
 
 
-                    // Check if city is changed
+                    // Check if city is changed - insert new city
                     if (Customer.allCustomers[customerIndex].city != customerCity || countryChange)
                     {
                         query = "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerCity + "', '" + countryId + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -349,7 +355,7 @@ namespace Project
                         cityChange = true;
                     }
 
-                    // Check if address is changed
+                    // Check if address is changed - insert new address
                     if (Customer.allCustomers[customerIndex].address != customerAddress || Customer.allCustomers[customerIndex].postalCode != customerZipCode || Customer.allCustomers[customerIndex].phone != customerPhoneNumber || cityChange)
                     {
                         query = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('" + customerAddress + "', '', '" + cityId + "', '" + customerZipCode + "', '" + customerPhoneNumber + "', NOW(), '" + Login.userName + "', NOW(), '" + Login.userName + "')";
@@ -361,7 +367,7 @@ namespace Project
                     }
 
 
-                    // Check if customer name is changed
+                    // Check if customer name is changed - update record
                     if (Customer.allCustomers[customerIndex].name != customerName || addressChange)
                     {
                         query = "UPDATE customer SET customerName='" + customerName + "', addressId='" + addressId +"', lastUpdate=NOW(), lastUpdateBy='" + Login.userName + "' WHERE customerId=" + Customer.allCustomers[customerIndex].id;
@@ -370,6 +376,7 @@ namespace Project
 
                         customerChange = true;
                     }
+
 
                     if (customerChange || addressChange || cityChange || countryChange)
                     {

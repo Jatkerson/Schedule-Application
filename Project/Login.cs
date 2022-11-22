@@ -26,6 +26,8 @@ namespace Project
 
             string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
+
+            // Check for english or spanish and set text to match language
             if (languageCode == "en")
             {
                 loginLabelLogin.Text = "Login";
@@ -45,22 +47,35 @@ namespace Project
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            MySqlConnection c = DBConnection.conn;
 
             userName = tbLoginUsername.Text;
             string password = tbLoginPassword.Text;
 
+
+            // Attempt to 
             try
             {
+
+                MySqlConnection c = DBConnection.conn;
 
                 string query = "SELECT userID FROM user WHERE userName='" + userName + "' AND password='" + password + "'";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 object result = cmd.ExecuteScalar();
 
+                // Check if user
                 if(result == null)
                 {
+                    // User failed to log in
+
+                    // Write login attempt to log file
+                    using (StreamWriter sw = File.AppendText("log.txt"))
+                    {
+                        sw.WriteLine("Failed login attempt with user " + userName + " at " + DateTime.Now.ToString());
+                    }
+
                     string languageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
+                    // Translate error message to english or spanish
                     if(languageCode == "en")
                     {
                         MessageBox.Show("Incorrect username and password combination");
@@ -70,24 +85,21 @@ namespace Project
                         MessageBox.Show("Combinación incorrecta de nombre de usuario y contraseña");
                     }
 
-
-                    using (StreamWriter sw = File.AppendText("log.txt"))
-                    {
-                        sw.WriteLine("Failed login attempt with user " + userName + " at " + DateTime.Now.ToString());
-                    }
-
-
                 }
                 else
                 {
+                    // User has successfully logged in
 
+                    userId = Convert.ToInt32(result);
+
+                    // Write login to log file
                     using (StreamWriter sw = File.AppendText("log.txt"))
                     {
                         sw.WriteLine("User " + userName + " logged in at " + DateTime.Now.ToString());
                     }
 
-                    userId = Convert.ToInt32(result);
 
+                    // Check for appointment within 15 minutes
                     query = "SELECT ADDDATE(start, INTERVAL " + MainForm.timezoneOffsetHour.ToString() + " HOUR) FROM appointment WHERE userId='" + userId + "'";
                     cmd = new MySqlCommand(query, c);
                     MySqlDataReader rdr = cmd.ExecuteReader();

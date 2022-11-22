@@ -547,7 +547,6 @@ namespace Project
 
                 MySqlConnection c = DBConnection.conn;
 
-                // Check if new appointment time has overlap with existing customer appointment
                 string query = "SELECT COUNT(appointmentId) FROM appointment INNER JOIN user ON user.userId=appointment.userId WHERE userName='" + userName + "'";
                 MySqlCommand cmd = new MySqlCommand(query, c);
                 object result = cmd.ExecuteScalar();
@@ -559,10 +558,6 @@ namespace Project
             {
                 MessageBox.Show("error: " + ex.ToString());
             }
-
-
-
-
         }
 
         private void buttonReportTypeByMonth_Click(object sender, EventArgs e)
@@ -572,20 +567,25 @@ namespace Project
             string monthName = cbReportMonth.SelectedItem.ToString();
             int monthNumber = DateTimeFormatInfo.CurrentInfo.MonthNames.ToList().IndexOf(monthName) + 1;
 
-            //MessageBox.Show(monthNumber.ToString());
 
-            MySqlConnection c = DBConnection.conn;
-            string query = "";
-            MySqlCommand cmd = null;
-            object result = null;
+            // Attempt to get count of appointment type by month
+            // Reload appointment display
+            try
+            {
 
+                MySqlConnection c = DBConnection.conn;
 
-            // Check if new appointment time has overlap with existing customer appointment
-            query = "SELECT COUNT(appointmentId) FROM appointment WHERE type='" + appointmentType + "' AND MONTH(start)=" + monthNumber;
-            cmd = new MySqlCommand(query, c);
-            result = cmd.ExecuteScalar();
+                string query = "SELECT COUNT(appointmentId) FROM appointment WHERE type='" + appointmentType + "' AND MONTH(start)=" + monthNumber;
+                MySqlCommand cmd = new MySqlCommand(query, c);
+                object result = cmd.ExecuteScalar();
 
-            MessageBox.Show(result.ToString() + " " + appointmentType + " appointment(s) in " + monthName);
+                MessageBox.Show(result.ToString() + " " + appointmentType + " appointment(s) in " + monthName);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.ToString());
+            }
 
         }
 
