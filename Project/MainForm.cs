@@ -210,7 +210,7 @@ namespace Project
             }
             else if(view == "week")
             {
-                calendarFilter = " WHERE start >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+                calendarFilter = " WHERE start <= DATE_ADD(NOW(), INTERVAL 7 DAY) AND start > NOW()";
 
                 buttonCalendarAll.BackColor = SystemColors.Control;
                 buttonCalendarWeek.BackColor = SystemColors.ActiveCaption;
