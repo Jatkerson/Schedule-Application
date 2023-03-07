@@ -41,9 +41,7 @@
 ## About The Project
 
 <p align="left">
-    The scheduling application is a customizable application designed to allow users to schedule, modify, remove and track appointments with customers as well as add, modify and remove customers. The application requires a user login which references the user table. Appointment times are saved in GMT and converted based on the local client time.
-  
-    The project includes an ERD to document the database structure.
+    The scheduling application is a customizable application designed to allow users to schedule, modify, remove and track appointments with customers as well as add, modify and remove customers. The application requires a user login which references the user table. Appointment times are saved in GMT and converted based on the local client time. The project includes an <a href="https://github.com/Jatkerson/Schedule-Application/blob/main/ERD.png">Entity Relationship Diagram (ERD)</a> to document the database structure.
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
