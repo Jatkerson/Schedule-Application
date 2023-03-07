@@ -40,8 +40,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<p align="center">
-    The inventory management system can add, modify and delete parts and/or products. Products can have associated parts, which can be added or removed as well. The system comes with default parts for bicycles and 3 bicycle products. Search functionality is available for both parts and products.
+<p align="left">
+    The scheduling application is a customizable application designed to allow users to schedule, modify, remove and track appointments with customers as well as add, modify and remove customers. The application requires a user login which references the user table. Appointment times are saved in GMT and converted based on the local client time.
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -50,24 +50,31 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
+Beware that attempting to update the existing customer appointments will cause an error. The existing appointment data is for testing purposes and should be deleted to ensure stability.
+
 To get a local copy up and running follow these simple example steps.
+
 
 ### Prerequisites
 
-Ensure you have a local tool for working with MySQL database
+Ensure you have a local MySQL server, connector and workbench set up
 * MySQL workbench is one option
   ```sh
-  https://dev.mysql.com/downloads/workbench/
+  https://dev.mysql.com/downloads
   ```
 
 ### Installation
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Jatkerson/Inventory-Management-System.git
+   git clone https://github.com/Jatkerson/Schedule-Application.git
    ```
    
-2. Use the data.sql file to generate the database in your MySQL database tool
+2. Use the data.sql file to import the database with your database management tool
+
+3. Update App.config file by replacing the Username and Password values of the connectionString with the username and password for your local MySQL server
+
+4. The default login information when launching the application is username "test" and password "test"
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -88,7 +95,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 James Atkerson - jatkerson54@gmail.com
 
-Project Link: [https://github.com/Jatkerson/Inventory-Management-System](https://github.com/Jatkerson/Inventory-Management-System)
+Project Link: [https://github.com/Jatkerson/Schedule-Application](https://github.com/Jatkerson/Schedule-Application)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
